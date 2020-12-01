@@ -35,11 +35,11 @@ $ npm run script:kovan
 
 ## 【References】
 - Nexus Mutual
-  - Nexus Reinsurance Layer in Gitcoin
+  - Nexus Reinsurance Layer in Gitcoin  
     https://gitcoin.co/issue/NexusMutual/smart-contracts/48/100024186
 
-  - MCR% stands for Minimum Capital Requirement %
+  - MCR% stands for Minimum Capital Requirement %  
     https://nexusmutual.gitbook.io/docs/docs#capital-model
 
-  - Nexus Reinsurance Layer
+  - Nexus Reinsurance Layer  
     https://docs.google.com/document/d/1EZLRdxkfb-3lbkAp1FNrIs4vkDXPfNko6PJ0IMnp4vw/edit
