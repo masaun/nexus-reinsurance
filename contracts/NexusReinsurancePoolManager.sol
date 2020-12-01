@@ -45,7 +45,13 @@ contract NexusReinsurancePoolManager {
     /***
      * @notice - Receives NXM from Nexus Mutual and converts to wNXM
      **/
-
+    function convertFromNXMToWNXM(address _nexusMutual, uint receivedNXMAmount) public returns (bool) {
+        /// Receives NXM from Nexus Mutual
+        nxmToken.transferFrom(_nexusMutual, address(this), receivedNXMAmount);
+    
+        /// Converts from NXM to wNXM
+        _convertFromNXMToWNXM(receivedNXMAmount);
+    }
 
 
     /***
@@ -72,6 +78,11 @@ contract NexusReinsurancePoolManager {
     ///------------------------------------------------------------
     /// Internal functions
     ///------------------------------------------------------------
+    function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
+        /// [Todo]: Write converts code into here
+    }
+
+
 
 
 
