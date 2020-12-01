@@ -21,6 +21,7 @@ import "../capital/MCR.sol";
 import "../capital/PoolData.sol";
 import "../claims/ClaimsReward.sol";
 import "../governance/Governance.sol";
+import "../governance/MemberRoles.sol";   /// Added
 import "../cover/QuotationData.sol";
 import "./NXMToken.sol";
 import "./TokenController.sol";
