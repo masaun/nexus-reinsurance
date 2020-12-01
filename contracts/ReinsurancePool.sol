@@ -3,11 +3,10 @@ pragma experimental ABIEncoderV2;
 
 
 /***
- * @notice - Template contract that can deploy reinsurance pools. 
- *         - Important aspect for Nexus Mutual is that the template is configurable enough for the goals required.
- * @dev - TO DO: add in detailed configurations, check if they meet Nexus requirements.
+ * @notice - ReinsurancePool.sol is created via ReinsurancePoolFactory.sol
+ *         - Each ReinsurancePool has a contract address
  **/
-contract ReinsurancePoolFactory {
+contract ReinsurancePool {
 
     constructor() public {}
 
