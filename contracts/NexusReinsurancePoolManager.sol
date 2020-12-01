@@ -1,6 +1,11 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
+import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
+import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
+import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
+import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
+
 
 /***
  * @notice - The interface between the reinsurance pool and Nexus Mutual.
