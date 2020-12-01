@@ -20,12 +20,32 @@ import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
  *        ・Send rewards to the reinsurance pools for distribution
  **/
 contract NexusReinsurancePoolManager {
+    MCR public mcr;
+    NXMToken public nxmToken;
+    PooledStaking public pooledStaking;
+    Claims public claims;
 
-    constructor() public {}
+    address MCR_ADDRESS;
+    address NXM_TOKEN; 
+    address POOLED_STAKING;
+    address CLAIMS; 
+
+    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims) public {
+        mcr = _mcr;
+        nxmToken = _nxmToken;
+        pooledStaking = _pooledStaking;
+        claims = _claims;
+
+        MCR_ADDRESS = address(_mcr);
+        NXM_TOKEN = address(_nxmToken);
+        POOLED_STAKING = address(_pooledStaking);
+        CLAIMS = address(_claims); 
+    }
 
     /***
      * @notice - Receives NXM from Nexus Mutual and converts to wNXM
      **/
+
 
 
     /***
