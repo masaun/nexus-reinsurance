@@ -6,6 +6,8 @@ import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
 import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
+import { WNXMToken } from "./WNXMToken.sol";
+
 
 /***
  * @notice - The interface between the reinsurance pool and Nexus Mutual.
@@ -24,22 +26,26 @@ contract NexusReinsurancePoolManager {
     NXMToken public nxmToken;
     PooledStaking public pooledStaking;
     Claims public claims;
+    WNXMToken public wNXMToken;
 
     address MCR_ADDRESS;
     address NXM_TOKEN; 
     address POOLED_STAKING;
     address CLAIMS; 
+    address WNXM_TOKEN;
 
-    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims) public {
+    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken) public {
         mcr = _mcr;
         nxmToken = _nxmToken;
         pooledStaking = _pooledStaking;
         claims = _claims;
+        wNXMToken = _wNXMToken;
 
         MCR_ADDRESS = address(_mcr);
         NXM_TOKEN = address(_nxmToken);
         POOLED_STAKING = address(_pooledStaking);
-        CLAIMS = address(_claims); 
+        CLAIMS = address(_claims);
+        WNXM_TOKEN = address(_wNXMToken);
     }
 
     /***
@@ -78,8 +84,10 @@ contract NexusReinsurancePoolManager {
     ///------------------------------------------------------------
     /// Internal functions
     ///------------------------------------------------------------
+    
     function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
-        /// [Todo]: Write converts code into here
+        /// Mint WNXM token (and send those tokens into this contract)
+        wNXMToken.mint(address(this), receivedNXMAmount);
     }
 
 
