@@ -1,0 +1,416 @@
+{
+  "fileName": "ITokenFunctions.sol",
+  "contractName": "ITokenFunctions",
+  "source": "/* Copyright (C) 2020 NexusMutual.io\n\n  This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License\n    along with this program.  If not, see http://www.gnu.org/licenses/ */\n\npragma solidity ^0.5.0;\n\n\ninterface ITokenFunctions {\n  function _deprecated_unlockableBeforeBurningAndCanBurn(\n    address stakerAdd,\n    address stakedAdd,\n    uint stakerIndex\n  )\n  external\n  view\n  returns\n  (uint amount, uint canBurn);\n\n  function _deprecated_getStakerUnlockableTokensOnSmartContract(\n    address _stakerAddress,\n    address _stakedContractAddress,\n    uint _stakedContractIndex\n  )\n  external\n  view\n  returns\n  (uint amount);\n}\n",
+  "sourcePath": "contracts/interfaces/ITokenFunctions.sol",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_stakerAddress",
+          "type": "address"
+        },
+        {
+          "name": "_stakedContractAddress",
+          "type": "address"
+        },
+        {
+          "name": "_stakedContractIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "_deprecated_getStakerUnlockableTokensOnSmartContract",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "stakerAdd",
+          "type": "address"
+        },
+        {
+          "name": "stakedAdd",
+          "type": "address"
+        },
+        {
+          "name": "stakerIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "_deprecated_unlockableBeforeBurningAndCanBurn",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "canBurn",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/interfaces/ITokenFunctions.sol",
+    "exportedSymbols": {
+      "ITokenFunctions": [
+        7758
+      ]
+    },
+    "id": 7759,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7733,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "685:23:17"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 7758,
+        "linearizedBaseContracts": [
+          7758
+        ],
+        "name": "ITokenFunctions",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 7746,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_deprecated_unlockableBeforeBurningAndCanBurn",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7740,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7735,
+                  "name": "stakerAdd",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7746,
+                  "src": "801:17:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7734,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "801:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7737,
+                  "name": "stakedAdd",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7746,
+                  "src": "824:17:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7736,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "824:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7739,
+                  "name": "stakerIndex",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7746,
+                  "src": "847:16:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7738,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "847:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "795:72:17"
+            },
+            "returnParameters": {
+              "id": 7745,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7742,
+                  "name": "amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7746,
+                  "src": "899:11:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7741,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "899:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7744,
+                  "name": "canBurn",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7746,
+                  "src": "912:12:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7743,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "912:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "898:27:17"
+            },
+            "scope": 7758,
+            "src": "741:185:17",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 7757,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_deprecated_getStakerUnlockableTokensOnSmartContract",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7753,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7748,
+                  "name": "_stakerAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7757,
+                  "src": "997:22:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7747,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "997:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7750,
+                  "name": "_stakedContractAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7757,
+                  "src": "1025:30:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7749,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1025:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7752,
+                  "name": "_stakedContractIndex",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7757,
+                  "src": "1061:25:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7751,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1061:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "991:99:17"
+            },
+            "returnParameters": {
+              "id": 7756,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7755,
+                  "name": "amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7757,
+                  "src": "1122:11:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7754,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1122:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1121:13:17"
+            },
+            "scope": 7758,
+            "src": "930:205:17",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 7759,
+        "src": "711:426:17"
+      }
+    ],
+    "src": "685:453:17"
+  },
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.7+commit.6da8b019.Emscripten.clang",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}

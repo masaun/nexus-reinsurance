@@ -1,0 +1,201 @@
+{
+  "fileName": "Deployer.sol",
+  "contractName": "Deployer",
+  "source": "pragma solidity ^0.5.0;\n\ncontract Deployer {\n\n  function deploy(bytes memory data, uint256 salt) public {\n    assembly {\n      pop(create2(0, add(data, 32), mload(data), salt))\n    }\n  }\n\n}\n",
+  "sourcePath": "contracts/external/Deployer.sol",
+  "sourceMap": "25:164:8:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:164:8;;;;;;;",
+  "deployedSourceMap": "25:164:8:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:164:8;;;;;;;;;;;;;;;;;;;48:138;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;48:138:8;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;48:138:8;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;48:138:8;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;48:138:8;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;74:27;;;;-1:-1;48:138:8;;-1:-1:-1;;48:138:8;;;-1:-1:-1;48:138:8;;-1:-1:-1;;48:138:8:i;:::-;;;170:4;163;157:11;152:2;146:4;142:13;139:1;131:44;127:49;119:63;;:::o",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "name": "salt",
+          "type": "uint256"
+        }
+      ],
+      "name": "deploy",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/external/Deployer.sol",
+    "exportedSymbols": {
+      "Deployer": [
+        1031
+      ]
+    },
+    "id": 1032,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1021,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:8"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1031,
+        "linearizedBaseContracts": [
+          1031
+        ],
+        "name": "Deployer",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 1029,
+              "nodeType": "Block",
+              "src": "104:82:8",
+              "statements": [
+                {
+                  "externalReferences": [
+                    {
+                      "salt": {
+                        "declaration": 1025,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "170:4:8",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "data": {
+                        "declaration": 1023,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "146:4:8",
+                        "valueSize": 1
+                      }
+                    },
+                    {
+                      "data": {
+                        "declaration": 1023,
+                        "isOffset": false,
+                        "isSlot": false,
+                        "src": "163:4:8",
+                        "valueSize": 1
+                      }
+                    }
+                  ],
+                  "id": 1028,
+                  "nodeType": "InlineAssembly",
+                  "operations": "{\n    pop(create2(0, add(data, 32), mload(data), salt))\n}",
+                  "src": "110:76:8"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1030,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deploy",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1026,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1023,
+                  "name": "data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1030,
+                  "src": "64:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 1022,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "64:5:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1025,
+                  "name": "salt",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1030,
+                  "src": "83:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1024,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "83:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "63:33:8"
+            },
+            "returnParameters": {
+              "id": 1027,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "104:0:8"
+            },
+            "scope": 1031,
+            "src": "48:138:8",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1032,
+        "src": "25:164:8"
+      }
+    ],
+    "src": "0:190:8"
+  },
+  "bytecode": "0x608060405234801561001057600080fd5b5061010c806100206000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80639c4ae2d014602d575b600080fd5b60cf60048036036040811015604157600080fd5b810190602081018135640100000000811115605b57600080fd5b820183602082011115606c57600080fd5b80359060200191846001830284011164010000000083111715608d57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929550509135925060d1915050565b005b808251602084016000f550505056fea165627a7a723058203c8e319f51b47cad6adefa6b0e8117812595012e3d14ab56283ab84863bcdfc70029",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c80639c4ae2d014602d575b600080fd5b60cf60048036036040811015604157600080fd5b810190602081018135640100000000811115605b57600080fd5b820183602082011115606c57600080fd5b80359060200191846001830284011164010000000083111715608d57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929550509135925060d1915050565b005b808251602084016000f550505056fea165627a7a723058203c8e319f51b47cad6adefa6b0e8117812595012e3d14ab56283ab84863bcdfc70029",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.7+commit.6da8b019.Emscripten.clang",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}

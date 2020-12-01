@@ -1,0 +1,807 @@
+{
+  "fileName": "Governed.sol",
+  "contractName": "IMaster",
+  "source": "/* Copyright (C) 2017 GovBlocks.io\n  This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n  This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n  You should have received a copy of the GNU General Public License\n    along with this program.  If not, see http://www.gnu.org/licenses/ */\n\npragma solidity ^0.5.0;\n\n\ninterface IMaster {\n  function getLatestAddress(bytes2 _module) external view returns (address);\n}\n\ncontract Governed {\n\n  address public masterAddress; // Name of the dApp, needs to be set by contracts inheriting this contract\n\n  /// @dev modifier that allows only the authorized addresses to execute the function\n  modifier onlyAuthorizedToGovern() {\n    IMaster ms = IMaster(masterAddress);\n    require(ms.getLatestAddress(\"GV\") == msg.sender, \"Not authorized\");\n    _;\n  }\n\n  /// @dev checks if an address is authorized to govern\n  function isAuthorizedToGovern(address _toCheck) public view returns (bool) {\n    IMaster ms = IMaster(masterAddress);\n    return (ms.getLatestAddress(\"GV\") == _toCheck);\n  }\n\n}\n",
+  "sourcePath": "contracts/modules/governance/external/Governed.sol",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_module",
+          "type": "bytes2"
+        }
+      ],
+      "name": "getLatestAddress",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/modules/governance/external/Governed.sol",
+    "exportedSymbols": {
+      "Governed": [
+        33854
+      ],
+      "IMaster": [
+        33808
+      ]
+    },
+    "id": 33855,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 33800,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "680:23:48"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 33808,
+        "linearizedBaseContracts": [
+          33808
+        ],
+        "name": "IMaster",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 33807,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getLatestAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 33803,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 33802,
+                  "name": "_module",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 33807,
+                  "src": "754:14:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes2",
+                    "typeString": "bytes2"
+                  },
+                  "typeName": {
+                    "id": 33801,
+                    "name": "bytes2",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "754:6:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes2",
+                      "typeString": "bytes2"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "753:16:48"
+            },
+            "returnParameters": {
+              "id": 33806,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 33805,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 33807,
+                  "src": "793:7:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 33804,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "793:7:48",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "792:9:48"
+            },
+            "scope": 33808,
+            "src": "728:74:48",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 33855,
+        "src": "706:98:48"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 33854,
+        "linearizedBaseContracts": [
+          33854
+        ],
+        "name": "Governed",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 33810,
+            "name": "masterAddress",
+            "nodeType": "VariableDeclaration",
+            "scope": 33854,
+            "src": "829:28:48",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 33809,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "829:7:48",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 33830,
+              "nodeType": "Block",
+              "src": "1057:125:48",
+              "statements": [
+                {
+                  "assignments": [
+                    33813
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 33813,
+                      "name": "ms",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 33830,
+                      "src": "1063:10:48",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_IMaster_$33808",
+                        "typeString": "contract IMaster"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 33812,
+                        "name": "IMaster",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 33808,
+                        "src": "1063:7:48",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IMaster_$33808",
+                          "typeString": "contract IMaster"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 33817,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 33815,
+                        "name": "masterAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 33810,
+                        "src": "1084:13:48",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 33814,
+                      "name": "IMaster",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 33808,
+                      "src": "1076:7:48",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_IMaster_$33808_$",
+                        "typeString": "type(contract IMaster)"
+                      }
+                    },
+                    "id": 33816,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1076:22:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IMaster_$33808",
+                      "typeString": "contract IMaster"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1063:35:48"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 33825,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "4756",
+                              "id": 33821,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "string",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1132:4:48",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_stringliteral_77e23f9fabe8ba7254d3b0d6efb7f94fb725b1100470d206d7ef2543400fdc87",
+                                "typeString": "literal_string \"GV\""
+                              },
+                              "value": "GV"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_stringliteral_77e23f9fabe8ba7254d3b0d6efb7f94fb725b1100470d206d7ef2543400fdc87",
+                                "typeString": "literal_string \"GV\""
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 33819,
+                              "name": "ms",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 33813,
+                              "src": "1112:2:48",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_IMaster_$33808",
+                                "typeString": "contract IMaster"
+                              }
+                            },
+                            "id": 33820,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "getLatestAddress",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 33807,
+                            "src": "1112:19:48",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_external_view$_t_bytes2_$returns$_t_address_$",
+                              "typeString": "function (bytes2) view external returns (address)"
+                            }
+                          },
+                          "id": 33822,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1112:25:48",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 33823,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 42309,
+                            "src": "1141:3:48",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 33824,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "1141:10:48",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "src": "1112:39:48",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e6f7420617574686f72697a6564",
+                        "id": 33826,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1153:16:48",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36",
+                          "typeString": "literal_string \"Not authorized\""
+                        },
+                        "value": "Not authorized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36",
+                          "typeString": "literal_string \"Not authorized\""
+                        }
+                      ],
+                      "id": 33818,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        42312,
+                        42313
+                      ],
+                      "referencedDeclaration": 42313,
+                      "src": "1104:7:48",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 33827,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1104:66:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 33828,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1104:66:48"
+                },
+                {
+                  "id": 33829,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "1176:1:48"
+                }
+              ]
+            },
+            "documentation": "@dev modifier that allows only the authorized addresses to execute the function",
+            "id": 33831,
+            "name": "onlyAuthorizedToGovern",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 33811,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1054:2:48"
+            },
+            "src": "1023:159:48",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 33852,
+              "nodeType": "Block",
+              "src": "1317:98:48",
+              "statements": [
+                {
+                  "assignments": [
+                    33839
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 33839,
+                      "name": "ms",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 33852,
+                      "src": "1323:10:48",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_IMaster_$33808",
+                        "typeString": "contract IMaster"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 33838,
+                        "name": "IMaster",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 33808,
+                        "src": "1323:7:48",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IMaster_$33808",
+                          "typeString": "contract IMaster"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 33843,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 33841,
+                        "name": "masterAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 33810,
+                        "src": "1344:13:48",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 33840,
+                      "name": "IMaster",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 33808,
+                      "src": "1336:7:48",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_IMaster_$33808_$",
+                        "typeString": "type(contract IMaster)"
+                      }
+                    },
+                    "id": 33842,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1336:22:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IMaster_$33808",
+                      "typeString": "contract IMaster"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1323:35:48"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 33849,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "4756",
+                              "id": 33846,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "string",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1392:4:48",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_stringliteral_77e23f9fabe8ba7254d3b0d6efb7f94fb725b1100470d206d7ef2543400fdc87",
+                                "typeString": "literal_string \"GV\""
+                              },
+                              "value": "GV"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_stringliteral_77e23f9fabe8ba7254d3b0d6efb7f94fb725b1100470d206d7ef2543400fdc87",
+                                "typeString": "literal_string \"GV\""
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 33844,
+                              "name": "ms",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 33839,
+                              "src": "1372:2:48",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_IMaster_$33808",
+                                "typeString": "contract IMaster"
+                              }
+                            },
+                            "id": 33845,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "getLatestAddress",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 33807,
+                            "src": "1372:19:48",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_external_view$_t_bytes2_$returns$_t_address_$",
+                              "typeString": "function (bytes2) view external returns (address)"
+                            }
+                          },
+                          "id": 33847,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1372:25:48",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "id": 33848,
+                          "name": "_toCheck",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 33833,
+                          "src": "1401:8:48",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "1372:37:48",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "id": 33850,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1371:39:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 33837,
+                  "id": 33851,
+                  "nodeType": "Return",
+                  "src": "1364:46:48"
+                }
+              ]
+            },
+            "documentation": "@dev checks if an address is authorized to govern",
+            "id": 33853,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isAuthorizedToGovern",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 33834,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 33833,
+                  "name": "_toCheck",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 33853,
+                  "src": "1272:16:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 33832,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1272:7:48",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1271:18:48"
+            },
+            "returnParameters": {
+              "id": 33837,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 33836,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 33853,
+                  "src": "1311:4:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 33835,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1311:4:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1310:6:48"
+            },
+            "scope": 33854,
+            "src": "1242:173:48",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 33855,
+        "src": "806:612:48"
+      }
+    ],
+    "src": "680:739:48"
+  },
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.7+commit.6da8b019.Emscripten.clang",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}

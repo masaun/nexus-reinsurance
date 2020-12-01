@@ -1,0 +1,389 @@
+{
+  "fileName": "ClaimProofs.sol",
+  "contractName": "ClaimProofs",
+  "source": "/* Copyright (C) 2020 NexusMutual.io\n\n  This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License\n    along with this program.  If not, see http://www.gnu.org/licenses/\n*/\n\npragma solidity ^0.5.0;\n\ncontract ClaimProofs {\n\n  event ProofAdded(uint indexed coverId, address indexed owner, string ipfsHash);\n\n  function addProof(uint _coverId, string calldata _ipfsHash) external {\n    emit ProofAdded(_coverId, msg.sender, _ipfsHash);\n  }\n\n}\n",
+  "sourcePath": "contracts/modules/claims/ClaimProofs.sol",
+  "sourceMap": "710:240:38:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;710:240:38;;;;;;;",
+  "deployedSourceMap": "710:240:38:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;710:240:38;;;;;;;;;;;;;;;;;;;819:128;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;819:128:38;;;;;;;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;819:128:38;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;819:128:38;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;-1:-1;819:128:38;;-1:-1:-1;819:128:38;-1:-1:-1;819:128:38;:::i;:::-;;;920:10;-1:-1:-1;;;;;899:43:38;910:8;899:43;932:9;;899:43;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;;74:27;899:43:38;;137:4:-1;117:14;;;-1:-1;;113:30;157:16;;;899:43:38;;;;-1:-1:-1;899:43:38;;-1:-1:-1;;;;899:43:38;819:128;;;:::o",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_coverId",
+          "type": "uint256"
+        },
+        {
+          "name": "_ipfsHash",
+          "type": "string"
+        }
+      ],
+      "name": "addProof",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "coverId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "ipfsHash",
+          "type": "string"
+        }
+      ],
+      "name": "ProofAdded",
+      "type": "event"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/modules/claims/ClaimProofs.sol",
+    "exportedSymbols": {
+      "ClaimProofs": [
+        17718
+      ]
+    },
+    "id": 17719,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 17694,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "685:23:38"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 17718,
+        "linearizedBaseContracts": [
+          17718
+        ],
+        "name": "ClaimProofs",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 17702,
+            "name": "ProofAdded",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 17701,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 17696,
+                  "indexed": true,
+                  "name": "coverId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 17702,
+                  "src": "753:20:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 17695,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "753:4:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 17698,
+                  "indexed": true,
+                  "name": "owner",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 17702,
+                  "src": "775:21:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 17697,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "775:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 17700,
+                  "indexed": false,
+                  "name": "ipfsHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 17702,
+                  "src": "798:15:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 17699,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "798:6:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "752:62:38"
+            },
+            "src": "736:79:38"
+          },
+          {
+            "body": {
+              "id": 17716,
+              "nodeType": "Block",
+              "src": "888:59:38",
+              "statements": [
+                {
+                  "eventCall": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 17710,
+                        "name": "_coverId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 17704,
+                        "src": "910:8:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 17711,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 42309,
+                          "src": "920:3:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 17712,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "920:10:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 17713,
+                        "name": "_ipfsHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 17706,
+                        "src": "932:9:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_calldata_ptr",
+                          "typeString": "string calldata"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        {
+                          "typeIdentifier": "t_string_calldata_ptr",
+                          "typeString": "string calldata"
+                        }
+                      ],
+                      "id": 17709,
+                      "name": "ProofAdded",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 17702,
+                      "src": "899:10:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_address_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (uint256,address,string memory)"
+                      }
+                    },
+                    "id": 17714,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "899:43:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 17715,
+                  "nodeType": "EmitStatement",
+                  "src": "894:48:38"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 17717,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addProof",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 17707,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 17704,
+                  "name": "_coverId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 17717,
+                  "src": "837:13:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 17703,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "837:4:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 17706,
+                  "name": "_ipfsHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 17717,
+                  "src": "852:25:38",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_calldata_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 17705,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "852:6:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "836:42:38"
+            },
+            "returnParameters": {
+              "id": 17708,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "888:0:38"
+            },
+            "scope": 17718,
+            "src": "819:128:38",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 17719,
+        "src": "710:240:38"
+      }
+    ],
+    "src": "685:266:38"
+  },
+  "bytecode": "0x608060405234801561001057600080fd5b50610145806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063f9f3d0d914610030575b600080fd5b6100a76004803603604081101561004657600080fd5b8135919081019060408101602082013564010000000081111561006857600080fd5b82018360208201111561007a57600080fd5b8035906020019184600183028401116401000000008311171561009c57600080fd5b5090925090506100a9565b005b336001600160a01b0316837fbaa675765274f1b054a7c8dd5d7bdc8fcef9a7c314f58d93e4c5097809a7c668848460405180806020018281038252848482818152602001925080828437600083820152604051601f909101601f19169092018290039550909350505050a350505056fea165627a7a72305820db6b887465095add42fa3ce7e48679c755877b0b3c80baa2c7f56199b9df6d2f0029",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c8063f9f3d0d914610030575b600080fd5b6100a76004803603604081101561004657600080fd5b8135919081019060408101602082013564010000000081111561006857600080fd5b82018360208201111561007a57600080fd5b8035906020019184600183028401116401000000008311171561009c57600080fd5b5090925090506100a9565b005b336001600160a01b0316837fbaa675765274f1b054a7c8dd5d7bdc8fcef9a7c314f58d93e4c5097809a7c668848460405180806020018281038252848482818152602001925080828437600083820152604051601f909101601f19169092018290039550909350505050a350505056fea165627a7a72305820db6b887465095add42fa3ce7e48679c755877b0b3c80baa2c7f56199b9df6d2f0029",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.7+commit.6da8b019.Emscripten.clang",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}

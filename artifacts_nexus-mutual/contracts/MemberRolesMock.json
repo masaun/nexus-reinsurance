@@ -1,0 +1,454 @@
+{
+  "fileName": "MemberRolesMock.sol",
+  "contractName": "MemberRolesMock",
+  "source": "/* Copyright (C) 2020 NexusMutual.io\n\n  This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License\n    along with this program.  If not, see http://www.gnu.org/licenses/ */\n\npragma solidity ^0.5.0;\n\nimport \"../interfaces/IMemberRoles.sol\";\n\ncontract MemberRolesMock is IMemberRoles {\n\n  function memberAtIndex(uint, uint) external returns (address, bool) {\n    revert(\"Unexpected MemberRolesMock call\");\n  }\n\n  function membersLength(uint) external returns (uint) {\n    return 0;\n  }\n\n}\n",
+  "sourcePath": "contracts/mocks/MemberRolesMock.sol",
+  "sourceMap": "752:245:28:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;752:245:28;;;;;;;",
+  "deployedSourceMap": "752:245:28:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;752:245:28;;;;;;;;;;;;;;;;;;;;;;;;922:72;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;922:72:28;;:::i;:::-;;;;;;;;;;;;;;;;798:120;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;798:120:28;;;;;;;:::i;:::-;;;;-1:-1:-1;;;;;798:120:28;;;;;;;;;;;;;;;;;;;;;922:72;-1:-1:-1;969:4:28;;922:72::o;798:120::-;872:41;;;-1:-1:-1;;;;;872:41:28;;;;;;;;;;;;;;;;;;;851:7;;;;872:41;;;;;;;",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "membersLength",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "memberAtIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/mocks/MemberRolesMock.sol",
+    "exportedSymbols": {
+      "MemberRolesMock": [
+        10266
+      ]
+    },
+    "id": 10267,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10236,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "685:23:28"
+      },
+      {
+        "absolutePath": "contracts/interfaces/IMemberRoles.sol",
+        "file": "../interfaces/IMemberRoles.sol",
+        "id": 10237,
+        "nodeType": "ImportDirective",
+        "scope": 10267,
+        "sourceUnit": 7474,
+        "src": "710:40:28",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 10238,
+              "name": "IMemberRoles",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 7473,
+              "src": "780:12:28",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IMemberRoles_$7473",
+                "typeString": "contract IMemberRoles"
+              }
+            },
+            "id": 10239,
+            "nodeType": "InheritanceSpecifier",
+            "src": "780:12:28"
+          }
+        ],
+        "contractDependencies": [
+          7473
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 10266,
+        "linearizedBaseContracts": [
+          10266,
+          7473
+        ],
+        "name": "MemberRolesMock",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 10254,
+              "nodeType": "Block",
+              "src": "866:52:28",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "556e6578706563746564204d656d626572526f6c65734d6f636b2063616c6c",
+                        "id": 10251,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "879:33:28",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_dbd692e2c43f58a8eb06075e7b03b135987863f11950bdd9d7b2e8c0f809d3f8",
+                          "typeString": "literal_string \"Unexpected MemberRolesMock call\""
+                        },
+                        "value": "Unexpected MemberRolesMock call"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_stringliteral_dbd692e2c43f58a8eb06075e7b03b135987863f11950bdd9d7b2e8c0f809d3f8",
+                          "typeString": "literal_string \"Unexpected MemberRolesMock call\""
+                        }
+                      ],
+                      "id": 10250,
+                      "name": "revert",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        42314,
+                        42315
+                      ],
+                      "referencedDeclaration": 42315,
+                      "src": "872:6:28",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (string memory) pure"
+                      }
+                    },
+                    "id": 10252,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "872:41:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 10253,
+                  "nodeType": "ExpressionStatement",
+                  "src": "872:41:28"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 10255,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "memberAtIndex",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10244,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10241,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10255,
+                  "src": "821:4:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10240,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "821:4:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10243,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10255,
+                  "src": "827:4:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10242,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "827:4:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "820:12:28"
+            },
+            "returnParameters": {
+              "id": 10249,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10246,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10255,
+                  "src": "851:7:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 10245,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "851:7:28",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10248,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10255,
+                  "src": "860:4:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10247,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "860:4:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "850:15:28"
+            },
+            "scope": 10266,
+            "src": "798:120:28",
+            "stateMutability": "nonpayable",
+            "superFunction": 7465,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 10264,
+              "nodeType": "Block",
+              "src": "975:19:28",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "30",
+                    "id": 10262,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "988:1:28",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_0_by_1",
+                      "typeString": "int_const 0"
+                    },
+                    "value": "0"
+                  },
+                  "functionReturnParameters": 10261,
+                  "id": 10263,
+                  "nodeType": "Return",
+                  "src": "981:8:28"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 10265,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "membersLength",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10258,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10257,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10265,
+                  "src": "945:4:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10256,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "945:4:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "944:6:28"
+            },
+            "returnParameters": {
+              "id": 10261,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10260,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10265,
+                  "src": "969:4:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10259,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "969:4:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "968:6:28"
+            },
+            "scope": 10266,
+            "src": "922:72:28",
+            "stateMutability": "nonpayable",
+            "superFunction": 7472,
+            "visibility": "external"
+          }
+        ],
+        "scope": 10267,
+        "src": "752:245:28"
+      }
+    ],
+    "src": "685:313:28"
+  },
+  "bytecode": "0x608060405234801561001057600080fd5b50610137806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80638bed69eb1461003b578063b53e46791461006a575b600080fd5b6100586004803603602081101561005157600080fd5b50356100b0565b60408051918252519081900360200190f35b61008d6004803603604081101561008057600080fd5b50803590602001356100b6565b604080516001600160a01b03909316835290151560208301528051918290030190f35b50600090565b60408051600160e51b62461bcd02815260206004820152601f60248201527f556e6578706563746564204d656d626572526f6c65734d6f636b2063616c6c006044820152905160009182919081900360640190fdfea165627a7a723058200635f6500e734b844173c36116d3a336396561866c68b128c9a19cee363ec5530029",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80638bed69eb1461003b578063b53e46791461006a575b600080fd5b6100586004803603602081101561005157600080fd5b50356100b0565b60408051918252519081900360200190f35b61008d6004803603604081101561008057600080fd5b50803590602001356100b6565b604080516001600160a01b03909316835290151560208301528051918290030190f35b50600090565b60408051600160e51b62461bcd02815260206004820152601f60248201527f556e6578706563746564204d656d626572526f6c65734d6f636b2063616c6c006044820152905160009182919081900360640190fdfea165627a7a723058200635f6500e734b844173c36116d3a336396561866c68b128c9a19cee363ec5530029",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.7+commit.6da8b019.Emscripten.clang",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}

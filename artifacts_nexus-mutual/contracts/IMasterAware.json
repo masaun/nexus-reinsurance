@@ -1,0 +1,167 @@
+{
+  "fileName": "IMasterAware.sol",
+  "contractName": "IMasterAware",
+  "source": "/* Copyright (C) 2020 NexusMutual.io\n\n  This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License\n    along with this program.  If not, see http://www.gnu.org/licenses/ */\n\npragma solidity ^0.5.0;\n\n\ninterface IMasterAware {\n\n  function changeDependentContractAddress() external;\n\n  function changeMasterAddress(address _masterAddress) external;\n}\n",
+  "sourcePath": "contracts/interfaces/IMasterAware.sol",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "changeDependentContractAddress",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_masterAddress",
+          "type": "address"
+        }
+      ],
+      "name": "changeMasterAddress",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/interfaces/IMasterAware.sol",
+    "exportedSymbols": {
+      "IMasterAware": [
+        7447
+      ]
+    },
+    "id": 7448,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7438,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "685:23:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 7447,
+        "linearizedBaseContracts": [
+          7447
+        ],
+        "name": "IMasterAware",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 7441,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "changeDependentContractAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7439,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "778:2:12"
+            },
+            "returnParameters": {
+              "id": 7440,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "789:0:12"
+            },
+            "scope": 7447,
+            "src": "739:51:12",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 7446,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "changeMasterAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7444,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7443,
+                  "name": "_masterAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7446,
+                  "src": "823:22:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7442,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "823:7:12",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "822:24:12"
+            },
+            "returnParameters": {
+              "id": 7445,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "855:0:12"
+            },
+            "scope": 7447,
+            "src": "794:62:12",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 7448,
+        "src": "711:147:12"
+      }
+    ],
+    "src": "685:174:12"
+  },
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.7+commit.6da8b019.Emscripten.clang",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}
