@@ -37,6 +37,9 @@ contract NexusReinsurancePoolManager {
     address CLAIMS; 
     address WNXM_TOKEN;
 
+    address payable NEXUS_REINSURANCE_POOL_MANAGER;
+
+
     constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken) public {
         mcr = _mcr;
         nxmToken = _nxmToken;
@@ -49,6 +52,8 @@ contract NexusReinsurancePoolManager {
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
+
+        NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(this)));  /// [Note]: address(uint160()) is a method for converting to payable
     }
 
 
@@ -60,7 +65,7 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      **/
     function createNexusReinsurancePool() public returns (bool) {
-        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool();
+        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
     }
 
