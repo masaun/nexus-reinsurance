@@ -6,6 +6,9 @@ import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
 import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
+import { WNXMToken } from "./WNXMToken.sol";
+import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
+
 
 /***
  * @notice - The interface between the reinsurance pool and Nexus Mutual.
@@ -20,38 +23,118 @@ import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
  *        ・Send rewards to the reinsurance pools for distribution
  **/
 contract NexusReinsurancePoolManager {
+    address[] nexusReinsurancePools;
 
-    constructor() public {}
+    MCR public mcr;
+    NXMToken public nxmToken;
+    PooledStaking public pooledStaking;
+    Claims public claims;
+    WNXMToken public wNXMToken;
+
+    address MCR_ADDRESS;
+    address NXM_TOKEN; 
+    address POOLED_STAKING;
+    address CLAIMS; 
+    address WNXM_TOKEN;
+
+    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken) public {
+        mcr = _mcr;
+        nxmToken = _nxmToken;
+        pooledStaking = _pooledStaking;
+        claims = _claims;
+        wNXMToken = _wNXMToken;
+
+        MCR_ADDRESS = address(_mcr);
+        NXM_TOKEN = address(_nxmToken);
+        POOLED_STAKING = address(_pooledStaking);
+        CLAIMS = address(_claims);
+        WNXM_TOKEN = address(_wNXMToken);
+    }
+
+
+    ///------------------------------------------------------------
+    /// Functions that new Nexus Reinsurance Pool creation
+    ///------------------------------------------------------------
 
     /***
-     * @notice - Receives NXM from Nexus Mutual and converts to wNXM
+     * @notice - Create a new Nexus Reinsurance Pool
      **/
+    function createNexusReinsurancePool() public returns (bool) {
+        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool();
+        nexusReinsurancePools.push(address(nexusReinsurancePool));
+    }
 
+
+    ///------------------------------------------------------------
+    /// Functions that are used when rewards
+    ///------------------------------------------------------------
+
+    /***
+     * @notice - Receives NXM from Nexus Mutual Capital Pool and converts to wNXM
+     *         - After that, loads up rewards
+     **/
+    function convertFromNXMToWNXM(address _nexusMutual, uint receivedNXMAmount) public returns (bool) {
+        /// Receives NXM from Nexus Mutual
+        nxmToken.transferFrom(_nexusMutual, address(this), receivedNXMAmount);
+    
+        /// Converts from NXM to wNXM
+        _convertFromNXMToWNXM(receivedNXMAmount);
+
+        /// Loads up rewards
+    }
 
     /***
      * @notice - Sends wNXM rewards to the Reinsurance pools.
      **/
+    function sendWNXMRewardToReinsurancePool(address reinsurancePool, uint rewardsAmount) public returns (bool) {
+        wNXMToken.transfer(reinsurancePool, rewardsAmount);
+    }    
 
+
+    ///------------------------------------------------------------
+    /// Functions that are used when claims
+    ///------------------------------------------------------------
 
     /***
      * @notice - Receives LP tokens in the event of a claim
      **/
-
+    function receiveLPToken() public returns (bool) {}
+    
 
     /***
-     * @notice - Converts LP tokens into underlying assets
-     **/     
+     * @notice - Converts (Redeem) LP tokens into underlying assets
+     **/
+    function redeemLPTokenWithUnderlyingAsset() public returns (bool) {}
 
 
     /***
      * @notice - Sends underlying assets into Nexus Mutual capital pool
      **/ 
+    function sendUnderlyingAssetIntoNexusMutualCapitalPool() public returns (bool) {}
+
+
+
+    ///------------------------------------------------------------
+    /// Configuration related functions of Nexus Mutual
+    ///------------------------------------------------------------
+
+    /***
+     * @notice - Change reward rates
+     **/ 
+
 
 
 
     ///------------------------------------------------------------
     /// Internal functions
     ///------------------------------------------------------------
+    
+    function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
+        /// Mint WNXM token (and send those tokens into this contract)
+        wNXMToken.mint(address(this), receivedNXMAmount);
+    }
+
+
 
 
 
