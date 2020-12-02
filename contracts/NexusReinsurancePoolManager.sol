@@ -7,7 +7,7 @@ import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol"
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { WNXMToken } from "./WNXMToken.sol";
-import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
+import { ReinsurancePoolFactory } from "./ReinsurancePoolFactory.sol";
 
 
 /***
@@ -23,37 +23,34 @@ import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
  *        ・Send rewards to the reinsurance pools for distribution
  **/
 contract NexusReinsurancePoolManager {
-    address[] nexusReinsurancePools;
-
     MCR public mcr;
     NXMToken public nxmToken;
     PooledStaking public pooledStaking;
     Claims public claims;
     WNXMToken public wNXMToken;
+    ReinsurancePoolFactory public reinsurancePoolFactory;
 
     address MCR_ADDRESS;
     address NXM_TOKEN; 
     address POOLED_STAKING;
     address CLAIMS; 
     address WNXM_TOKEN;
+    address REINSURANCE_POOL_FACTORY;
 
-    address payable NEXUS_REINSURANCE_POOL_MANAGER;
-
-
-    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken) public {
+    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken, ReinsurancePoolFactory _reinsurancePoolFactory) public {
         mcr = _mcr;
         nxmToken = _nxmToken;
         pooledStaking = _pooledStaking;
         claims = _claims;
         wNXMToken = _wNXMToken;
+        reinsurancePoolFactory = _reinsurancePoolFactory;
 
         MCR_ADDRESS = address(_mcr);
         NXM_TOKEN = address(_nxmToken);
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
-
-        NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(this)));  /// [Note]: address(uint160()) is a method for converting to payable
+        REINSURANCE_POOL_FACTORY = address(_reinsurancePoolFactory);
     }
 
 
@@ -65,8 +62,7 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      **/
     function createNexusReinsurancePool() public returns (bool) {
-        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
-        nexusReinsurancePools.push(address(nexusReinsurancePool));
+       reinsurancePoolFactory.createNexusReinsurancePool();
     }
 
 
