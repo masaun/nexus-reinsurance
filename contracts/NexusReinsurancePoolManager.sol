@@ -104,7 +104,7 @@ contract NexusReinsurancePoolManager {
     /***
      * @notice - Converts (Redeem) LP tokens into underlying assets
      **/
-    function redeemLPTokenWithUnderlyingAsset() public returns (bool) {}
+    function convertLPTokenIntoUnderlyingAsset() public returns (bool) {}
 
 
     /***
