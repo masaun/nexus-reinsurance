@@ -50,6 +50,7 @@ contract NexusReinsurancePoolManager {
 
     /***
      * @notice - Receives NXM from Nexus Mutual and converts to wNXM
+     *         - After that, loads up rewards
      **/
     function convertFromNXMToWNXM(address _nexusMutual, uint receivedNXMAmount) public returns (bool) {
         /// Receives NXM from Nexus Mutual
@@ -57,13 +58,16 @@ contract NexusReinsurancePoolManager {
     
         /// Converts from NXM to wNXM
         _convertFromNXMToWNXM(receivedNXMAmount);
-    }
 
+        /// Loads up rewards
+    }
 
     /***
      * @notice - Sends wNXM rewards to the Reinsurance pools.
      **/
-
+    function sendWNXMRewardsToReinsurancePool(address reinsurancePool, uint rewardsAmount) public returns (bool) {
+        wNXMToken.transfer(reinsurancePool, rewardsAmount);
+    }    
 
     /***
      * @notice - Receives LP tokens in the event of a claim
@@ -71,13 +75,25 @@ contract NexusReinsurancePoolManager {
 
 
     /***
-     * @notice - Converts LP tokens into underlying assets
-     **/     
+     * @notice - Converts (Redeem) LP tokens into underlying assets
+     **/
+
 
 
     /***
      * @notice - Sends underlying assets into Nexus Mutual capital pool
      **/ 
+
+
+
+    ///------------------------------------------------------------
+    /// Configuration related functions of Nexus Mutual
+    ///------------------------------------------------------------
+
+    /***
+     * @notice - Change reward rates
+     **/ 
+
 
 
 
