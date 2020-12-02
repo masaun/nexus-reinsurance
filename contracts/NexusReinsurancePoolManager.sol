@@ -62,7 +62,7 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      **/
     function createNexusReinsurancePool() public returns (bool) {
-       reinsurancePoolFactory.createNexusReinsurancePool();
+        reinsurancePoolFactory.createNexusReinsurancePool();
     }
 
 
