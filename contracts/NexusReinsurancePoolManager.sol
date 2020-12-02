@@ -7,6 +7,7 @@ import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol"
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { WNXMToken } from "./WNXMToken.sol";
+import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
 
 
 /***
@@ -22,6 +23,8 @@ import { WNXMToken } from "./WNXMToken.sol";
  *        ・Send rewards to the reinsurance pools for distribution
  **/
 contract NexusReinsurancePoolManager {
+    address[] nexusReinsurancePools;
+
     MCR public mcr;
     NXMToken public nxmToken;
     PooledStaking public pooledStaking;
@@ -46,6 +49,19 @@ contract NexusReinsurancePoolManager {
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
+    }
+
+
+    ///------------------------------------------------------------
+    /// Functions that new Nexus Reinsurance Pool creation
+    ///------------------------------------------------------------
+
+    /***
+     * @notice - Create a new Nexus Reinsurance Pool
+     **/
+    function createNexusReinsurancePool() public returns (bool) {
+        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool();
+        nexusReinsurancePools.push(address(nexusReinsurancePool));
     }
 
 
