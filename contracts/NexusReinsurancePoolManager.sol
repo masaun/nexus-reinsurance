@@ -3,10 +3,11 @@ pragma experimental ABIEncoderV2;
 
 import { MainStorage } from  "./mainStorage/MainStorage.sol";
 
+import { IPooledStaking } from "./nexus-mutual/interfaces/IPooledStaking.sol";
+import { ITokenData } from "./nexus-mutual/interfaces/ITokenData.sol";
+
 import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
-import { PoolData } from "./nexus-mutual/modules/capital/PoolData.sol";
 import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
-import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { WNXMToken } from "./WNXMToken.sol";
@@ -29,7 +30,8 @@ contract NexusReinsurancePoolManager {
     MainStorage public mainStorage;
     MCR public mcr;
     NXMToken public nxmToken;
-    PooledStaking public pooledStaking;
+    IPooledStaking public pooledStaking;
+    ITokenData public tokenData;
     Claims public claims;
     WNXMToken public wNXMToken;
     ReinsurancePoolFactory public reinsurancePoolFactory;
@@ -41,11 +43,14 @@ contract NexusReinsurancePoolManager {
     address WNXM_TOKEN;
     address REINSURANCE_POOL_FACTORY;
 
-    constructor(MainStorage _mainStorage, MCR _mcr, NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken, ReinsurancePoolFactory _reinsurancePoolFactory) public {
+    constructor(MainStorage _mainStorage, MCR _mcr, NXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, ReinsurancePoolFactory _reinsurancePoolFactory) public {
         mainStorage = _mainStorage;
+
+        pooledStaking = _pooledStaking;
+        tokenData = _tokenData;
+
         mcr = _mcr;
         nxmToken = _nxmToken;
-        pooledStaking = _pooledStaking;
         claims = _claims;
         wNXMToken = _wNXMToken;
         reinsurancePoolFactory = _reinsurancePoolFactory;
