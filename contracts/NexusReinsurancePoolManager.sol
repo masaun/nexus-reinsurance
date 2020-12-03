@@ -7,6 +7,7 @@ import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
 import { Pool1 } from "./nexus-mutual/modules/capital//Pool1.sol";
 import { Pool2 } from "./nexus-mutual/modules/capital//Pool2.sol";
 import { PoolData } from "./nexus-mutual/modules/capital/PoolData.sol";
+import { PoolData } from "./nexus-mutual/modules/capital/PoolData.sol";
 import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
 import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
