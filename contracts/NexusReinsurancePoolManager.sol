@@ -1,6 +1,8 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
+import { MainStorage } from  "./mainStorage/MainStorage.sol";
+
 import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
 import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
 import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
@@ -23,6 +25,7 @@ import { ReinsurancePoolFactory } from "./ReinsurancePoolFactory.sol";
  *        ・Send rewards to the reinsurance pools for distribution
  **/
 contract NexusReinsurancePoolManager {
+    MainStorage public mainStorage;
     MCR public mcr;
     NXMToken public nxmToken;
     PooledStaking public pooledStaking;
@@ -37,7 +40,8 @@ contract NexusReinsurancePoolManager {
     address WNXM_TOKEN;
     address REINSURANCE_POOL_FACTORY;
 
-    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken, ReinsurancePoolFactory _reinsurancePoolFactory) public {
+    constructor(MainStorage _mainStorage, MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken, ReinsurancePoolFactory _reinsurancePoolFactory) public {
+        mainStorage = _mainStorage;
         mcr = _mcr;
         nxmToken = _nxmToken;
         pooledStaking = _pooledStaking;
@@ -120,10 +124,11 @@ contract NexusReinsurancePoolManager {
     ///------------------------------------------------------------
 
     /***
-     * @notice - Change reward rates
+     * @notice - Set reward rates per pool
      **/ 
-
-
+    function setRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
+        mainStorage.saveRewardRate(reinsurancePoolId, rewardRate);
+    }
 
 
     ///------------------------------------------------------------
@@ -148,5 +153,6 @@ contract NexusReinsurancePoolManager {
     ///------------------------------------------------------------
     /// Private functions
     ///------------------------------------------------------------
+
 
 }

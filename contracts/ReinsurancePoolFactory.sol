@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
+import { MainStorage } from  "./mainStorage/MainStorage.sol";
 import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
 
 
@@ -10,11 +11,15 @@ import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
  * @dev - TO DO: add in detailed configurations, check if they meet Nexus requirements.
  **/
 contract ReinsurancePoolFactory {
+    MainStorage public mainStorage;
+
     address[] nexusReinsurancePools;
     address payable NEXUS_REINSURANCE_POOL_MANAGER;
 
-    constructor(address payable _nexusReinsurancePoolManager) public {
-        NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(_nexusReinsurancePoolManager));  /// [Note]: address(uint160()) is a method for converting address to payable        
+    constructor(MainStorage _mainStorage, address payable _nexusReinsurancePoolManager) public {
+        mainStorage = _mainStorage;
+
+        NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(_nexusReinsurancePoolManager));  /// [Note]: address(uint160()) is a method for converting address to payable    
     }
 
 
@@ -28,6 +33,8 @@ contract ReinsurancePoolFactory {
     function createNexusReinsurancePool() public returns (bool) {
         NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
+
+        mainStorage.saveReinsurancePool(address(nexusReinsurancePool));
     }
 
 
