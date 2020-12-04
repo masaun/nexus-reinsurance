@@ -156,6 +156,7 @@ contract NexusReinsurancePoolManager {
     
     function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
         /// Mint WNXM token (and send those tokens into this contract)
+        nxmToken.approve(WNXM_TOKEN, receivedNXMAmount);
         wNXMToken.wrap(receivedNXMAmount);
     }
 
