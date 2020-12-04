@@ -10,7 +10,7 @@ import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
 import { INXMToken } from "./nexus-mutual/abstract/INXMToken.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
-import { WNXMToken } from "./WNXMToken.sol";
+import { IwNXM } from "./IwNXM.sol";
 import { NexusReinsurancePoolFactory } from "./NexusReinsurancePoolFactory.sol";
 import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 
@@ -34,7 +34,7 @@ contract NexusReinsurancePoolManager {
     IPooledStaking public pooledStaking;
     ITokenData public tokenData;
     Claims public claims;
-    WNXMToken public wNXMToken;
+    IwNXM public wNXMToken;
     NexusReinsurancePoolFactory public nexusReinsurancePoolFactory;
     NexusMutualCapitalPool public nexusMutualCapitalPool;
 
@@ -46,7 +46,7 @@ contract NexusReinsurancePoolManager {
     address NEXUS_REINSURANCE_POOL_FACTORY;
     address NEXUS_MUTUAL_CAPITAL_POOL;
 
-    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory) public {
+    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, IwNXM _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory) public {
         mainStorage = _mainStorage;
 
         pooledStaking = _pooledStaking;
@@ -156,7 +156,7 @@ contract NexusReinsurancePoolManager {
     
     function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
         /// Mint WNXM token (and send those tokens into this contract)
-        wNXMToken.mint(address(this), receivedNXMAmount);
+        wNXMToken.wrap(receivedNXMAmount);
     }
 
 
