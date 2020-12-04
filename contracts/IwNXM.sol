@@ -3,10 +3,10 @@
 
 pragma solidity ^0.5.0;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 
-contract IwNXM is IERC20 {
+contract IwNXM is ERC20 {
     function wrap(uint256 _amount) external;
 
     function unwrap(uint256 _amount) external;
@@ -21,5 +21,5 @@ contract IwNXM is IERC20 {
         returns (bool success, string memory reason);
 
     /// @dev Method to claim junk and accidentally sent tokens
-    function claimTokens(IERC20 _token, address payable _to, uint256 _balance) external;
+    function claimTokens(ERC20 _token, address payable _to, uint256 _balance) external;
 }
