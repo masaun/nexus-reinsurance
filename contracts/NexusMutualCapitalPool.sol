@@ -6,7 +6,6 @@ import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
 import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
-import { NexusReinsurancePoolManager } from "./NexusReinsurancePoolManager.sol";
 
 
 /***
@@ -19,27 +18,31 @@ contract NexusMutualCapitalPool {
     using SafeMath for uint;
 
     NXMToken public nxmToken;
-    NexusReinsurancePoolManager public nexusReinsurancePoolManager;
     IERC20 public dai;
 
     address NXM_TOKEN;
-    address NEXUS_REINSURANCE_POOL_MANAGER;
 
-    constructor(NXMToken _nxmToken, NexusReinsurancePoolManager _nexusReinsurancePoolManager, IERC20 _dai) public {
+    constructor(NXMToken _nxmToken, IERC20 _dai) public {
         nxmToken = _nxmToken;
-        nexusReinsurancePoolManager = _nexusReinsurancePoolManager;
         dai = IERC20(address(_dai));
 
         NXM_TOKEN = address(_nxmToken);
-        NEXUS_REINSURANCE_POOL_MANAGER = address(_nexusReinsurancePoolManager);
     }
+
+
+    /***
+     * @notice - Where NXM come from is TBD.
+     *           (Additional implementation for existing contracts of Nexus Mutual may be needed) 
+     * @dev - Assuming that TBD above is solved, methods below has been implemented.
+     **/ 
 
 
     /***
      * @notice - Provides NXM rewards (into the NexusReinsurancePoolManager contract)
      **/
-    function provideNXMReward(uint nxmAmount) public returns (bool) {
-        nxmToken.transfer(NEXUS_REINSURANCE_POOL_MANAGER, nxmAmount);
+    function provideNXMReward(address to, uint nxmAmount) public returns (bool) {
+        /// [Notes]: "to" is NexusReinsurancePoolManager contract address. That parameter is assigned in the NexusReinsurancePoolManager contract
+        nxmToken.transfer(to, nxmAmount);
     }
     
 
