@@ -30,11 +30,13 @@ contract NexusReinsurancePoolFactory {
     /***
      * @notice - Create a new Nexus Reinsurance Pool
      **/
-    function createNexusReinsurancePool() public returns (bool) {
+    function createNexusReinsurancePool() public returns (address _nexusReinsurancePool) {
         NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
 
         mainStorage.saveReinsurancePool(address(nexusReinsurancePool));
+
+        return address(nexusReinsurancePool);
     }
 
 

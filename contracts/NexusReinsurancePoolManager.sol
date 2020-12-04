@@ -75,9 +75,21 @@ contract NexusReinsurancePoolManager {
 
     /***
      * @notice - Create a new Nexus Reinsurance Pool
+     * @param nxmAmount - NXM token amount is specified when this method is executed
      **/
-    function createNexusReinsurancePool() public returns (bool) {
-        nexusReinsurancePoolFactory.createNexusReinsurancePool();
+    function createNexusReinsurancePool(uint nxmAmount) public returns (bool) {
+        /// Receives NXM from the Nexus Mutual Capital Pool
+        nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
+
+        /// Convert received NXM to wNXM
+        convertFromNXMToWNXM(nxmAmount);
+
+        /// Create a new reinsurance pool
+        address newNexusReinsurancePool = nexusReinsurancePoolFactory.createNexusReinsurancePool();
+
+        /// Send wNXM as rewards into a new reinsurance pool
+        uint rewardsAmount = wNXMToken.balanceOf(address(this));
+        sendWNXMRewardToReinsurancePool(newNexusReinsurancePool, rewardsAmount);
     }
 
 
@@ -85,15 +97,10 @@ contract NexusReinsurancePoolManager {
     /// Functions that are used when rewards
     ///------------------------------------------------------------
 
-
     /***
      * @notice - Converts NXM to wNXM. After that, loads up rewards
-     * @notice - NXM is provided by the provideNXMReward method of NexusMutualCapitalPool.sol
      **/
-    function convertFromNXMToWNXM(address _nexusMutual, uint nxmAmount) public returns (bool) {
-        /// Receives NXM from the Nexus Mutual Capital Pool
-        nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
-    
+    function convertFromNXMToWNXM(uint nxmAmount) public returns (bool) {    
         /// Converts from NXM to wNXM
         _convertFromNXMToWNXM(nxmAmount);
 
