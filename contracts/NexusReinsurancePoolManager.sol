@@ -11,7 +11,7 @@ import { INXMToken } from "./nexus-mutual/abstract/INXMToken.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { WNXMToken } from "./WNXMToken.sol";
-import { ReinsurancePoolFactory } from "./ReinsurancePoolFactory.sol";
+import { NexusReinsurancePoolFactory } from "./NexusReinsurancePoolFactory.sol";
 import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 
 
@@ -35,7 +35,7 @@ contract NexusReinsurancePoolManager {
     ITokenData public tokenData;
     Claims public claims;
     WNXMToken public wNXMToken;
-    ReinsurancePoolFactory public reinsurancePoolFactory;
+    NexusReinsurancePoolFactory public nexusReinsurancePoolFactory;
     NexusMutualCapitalPool public nexusMutualCapitalPool;
 
     address MCR_ADDRESS;
@@ -43,10 +43,10 @@ contract NexusReinsurancePoolManager {
     address POOLED_STAKING;
     address CLAIMS; 
     address WNXM_TOKEN;
-    address REINSURANCE_POOL_FACTORY;
+    address NEXUS_REINSURANCE_POOL_FACTORY;
     address NEXUS_MUTUAL_CAPITAL_POOL;
 
-    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, ReinsurancePoolFactory _reinsurancePoolFactory) public {
+    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory) public {
         mainStorage = _mainStorage;
 
         pooledStaking = _pooledStaking;
@@ -56,7 +56,7 @@ contract NexusReinsurancePoolManager {
         nxmToken = _nxmToken;
         claims = _claims;
         wNXMToken = _wNXMToken;
-        reinsurancePoolFactory = _reinsurancePoolFactory;
+        nexusReinsurancePoolFactory = _nexusReinsurancePoolFactory;
         nexusMutualCapitalPool = _nexusMutualCapitalPool;
 
         MCR_ADDRESS = address(_mcr);
@@ -64,7 +64,7 @@ contract NexusReinsurancePoolManager {
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
-        REINSURANCE_POOL_FACTORY = address(_reinsurancePoolFactory);
+        NEXUS_REINSURANCE_POOL_FACTORY = address(_nexusReinsurancePoolFactory);
         NEXUS_MUTUAL_CAPITAL_POOL = address(_nexusMutualCapitalPool);
     }
 
@@ -77,7 +77,7 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      **/
     function createNexusReinsurancePool() public returns (bool) {
-        reinsurancePoolFactory.createNexusReinsurancePool();
+        nexusReinsurancePoolFactory.createNexusReinsurancePool();
     }
 
 
