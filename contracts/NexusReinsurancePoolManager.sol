@@ -11,7 +11,7 @@ import { INXMToken } from "./nexus-mutual/abstract/INXMToken.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { WNXMToken } from "./WNXMToken.sol";
-import { ReinsurancePoolFactory } from "./ReinsurancePoolFactory.sol";
+import { NexusReinsurancePoolFactory } from "./NexusReinsurancePoolFactory.sol";
 import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 
 
@@ -35,7 +35,7 @@ contract NexusReinsurancePoolManager {
     ITokenData public tokenData;
     Claims public claims;
     WNXMToken public wNXMToken;
-    ReinsurancePoolFactory public reinsurancePoolFactory;
+    NexusReinsurancePoolFactory public nexusReinsurancePoolFactory;
     NexusMutualCapitalPool public nexusMutualCapitalPool;
 
     address MCR_ADDRESS;
@@ -43,10 +43,10 @@ contract NexusReinsurancePoolManager {
     address POOLED_STAKING;
     address CLAIMS; 
     address WNXM_TOKEN;
-    address REINSURANCE_POOL_FACTORY;
+    address NEXUS_REINSURANCE_POOL_FACTORY;
     address NEXUS_MUTUAL_CAPITAL_POOL;
 
-    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, ReinsurancePoolFactory _reinsurancePoolFactory) public {
+    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory) public {
         mainStorage = _mainStorage;
 
         pooledStaking = _pooledStaking;
@@ -56,7 +56,7 @@ contract NexusReinsurancePoolManager {
         nxmToken = _nxmToken;
         claims = _claims;
         wNXMToken = _wNXMToken;
-        reinsurancePoolFactory = _reinsurancePoolFactory;
+        nexusReinsurancePoolFactory = _nexusReinsurancePoolFactory;
         nexusMutualCapitalPool = _nexusMutualCapitalPool;
 
         MCR_ADDRESS = address(_mcr);
@@ -64,7 +64,7 @@ contract NexusReinsurancePoolManager {
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
-        REINSURANCE_POOL_FACTORY = address(_reinsurancePoolFactory);
+        NEXUS_REINSURANCE_POOL_FACTORY = address(_nexusReinsurancePoolFactory);
         NEXUS_MUTUAL_CAPITAL_POOL = address(_nexusMutualCapitalPool);
     }
 
@@ -75,9 +75,21 @@ contract NexusReinsurancePoolManager {
 
     /***
      * @notice - Create a new Nexus Reinsurance Pool
+     * @param nxmAmount - NXM token amount is specified when this method is executed
      **/
-    function createNexusReinsurancePool() public returns (bool) {
-        reinsurancePoolFactory.createNexusReinsurancePool();
+    function createNexusReinsurancePool(uint nxmAmount) public returns (bool) {
+        /// Receives NXM from the Nexus Mutual Capital Pool
+        nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
+
+        /// Convert received NXM to wNXM
+        convertFromNXMToWNXM(nxmAmount);
+
+        /// Create a new reinsurance pool
+        address newNexusReinsurancePool = nexusReinsurancePoolFactory.createNexusReinsurancePool();
+
+        /// Send wNXM as rewards into a new reinsurance pool
+        uint rewardsAmount = wNXMToken.balanceOf(address(this));
+        sendWNXMRewardToReinsurancePool(newNexusReinsurancePool, rewardsAmount);
     }
 
 
@@ -85,15 +97,10 @@ contract NexusReinsurancePoolManager {
     /// Functions that are used when rewards
     ///------------------------------------------------------------
 
-
     /***
      * @notice - Converts NXM to wNXM. After that, loads up rewards
-     * @notice - NXM is provided by the provideNXMReward method of NexusMutualCapitalPool.sol
      **/
-    function convertFromNXMToWNXM(address _nexusMutual, uint nxmAmount) public returns (bool) {
-        /// Receives NXM from the Nexus Mutual Capital Pool
-        nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
-    
+    function convertFromNXMToWNXM(uint nxmAmount) public returns (bool) {    
         /// Converts from NXM to wNXM
         _convertFromNXMToWNXM(nxmAmount);
 

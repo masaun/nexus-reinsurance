@@ -10,7 +10,7 @@ import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
  *         - Important aspect for Nexus Mutual is that the template is configurable enough for the goals required.
  * @dev - TO DO: add in detailed configurations, check if they meet Nexus requirements.
  **/
-contract ReinsurancePoolFactory {
+contract NexusReinsurancePoolFactory {
     MainStorage public mainStorage;
 
     address[] nexusReinsurancePools;
@@ -30,11 +30,13 @@ contract ReinsurancePoolFactory {
     /***
      * @notice - Create a new Nexus Reinsurance Pool
      **/
-    function createNexusReinsurancePool() public returns (bool) {
+    function createNexusReinsurancePool() public returns (address _nexusReinsurancePool) {
         NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
 
         mainStorage.saveReinsurancePool(address(nexusReinsurancePool));
+
+        return address(nexusReinsurancePool);
     }
 
 
