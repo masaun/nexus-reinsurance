@@ -19,8 +19,8 @@ module.exports = {
       provider: () => new HDWalletProvider(mnemonic, 'https://kovan.infura.io/v3/' + process.env.INFURA_KEY),
       network_id: '42',
       gas: 6465030,
-      //gasPrice: 5000000000, // 5 gwei
-      gasPrice: 100000000000,  // 100 gwei
+      gasPrice: 5000000000, // 5 gwei
+      //gasPrice: 100000000000,  // 100 gwei
       skipDryRun: true,     // Skip dry run before migrations? (default: false for public nets)
     },
     rinkeby: {

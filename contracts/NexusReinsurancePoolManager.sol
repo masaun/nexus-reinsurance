@@ -1,13 +1,18 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
+import { MainStorage } from  "./mainStorage/MainStorage.sol";
+
+import { IPooledStaking } from "./nexus-mutual/interfaces/IPooledStaking.sol";
+import { ITokenData } from "./nexus-mutual/interfaces/ITokenData.sol";
+
 import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
-import { NXMToken } from "./nexus-mutual/modules/token/NXMToken.sol";
-import { PooledStaking } from "./nexus-mutual/modules/staking/PooledStaking.sol";
+import { INXMToken } from "./nexus-mutual/abstract/INXMToken.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { WNXMToken } from "./WNXMToken.sol";
-import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
+import { ReinsurancePoolFactory } from "./ReinsurancePoolFactory.sol";
+import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 
 
 /***
@@ -23,32 +28,44 @@ import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
  *        ・Send rewards to the reinsurance pools for distribution
  **/
 contract NexusReinsurancePoolManager {
-    address[] nexusReinsurancePools;
-
+    MainStorage public mainStorage;
     MCR public mcr;
-    NXMToken public nxmToken;
-    PooledStaking public pooledStaking;
+    INXMToken public nxmToken;
+    IPooledStaking public pooledStaking;
+    ITokenData public tokenData;
     Claims public claims;
     WNXMToken public wNXMToken;
+    ReinsurancePoolFactory public reinsurancePoolFactory;
+    NexusMutualCapitalPool public nexusMutualCapitalPool;
 
     address MCR_ADDRESS;
     address NXM_TOKEN; 
     address POOLED_STAKING;
     address CLAIMS; 
     address WNXM_TOKEN;
+    address REINSURANCE_POOL_FACTORY;
+    address NEXUS_MUTUAL_CAPITAL_POOL;
 
-    constructor(MCR _mcr,  NXMToken _nxmToken, PooledStaking _pooledStaking, Claims _claims, WNXMToken _wNXMToken) public {
+    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, WNXMToken _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, ReinsurancePoolFactory _reinsurancePoolFactory) public {
+        mainStorage = _mainStorage;
+
+        pooledStaking = _pooledStaking;
+        tokenData = _tokenData;
+
         mcr = _mcr;
         nxmToken = _nxmToken;
-        pooledStaking = _pooledStaking;
         claims = _claims;
         wNXMToken = _wNXMToken;
+        reinsurancePoolFactory = _reinsurancePoolFactory;
+        nexusMutualCapitalPool = _nexusMutualCapitalPool;
 
         MCR_ADDRESS = address(_mcr);
         NXM_TOKEN = address(_nxmToken);
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
+        REINSURANCE_POOL_FACTORY = address(_reinsurancePoolFactory);
+        NEXUS_MUTUAL_CAPITAL_POOL = address(_nexusMutualCapitalPool);
     }
 
 
@@ -60,8 +77,7 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      **/
     function createNexusReinsurancePool() public returns (bool) {
-        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool();
-        nexusReinsurancePools.push(address(nexusReinsurancePool));
+        reinsurancePoolFactory.createNexusReinsurancePool();
     }
 
 
@@ -69,16 +85,17 @@ contract NexusReinsurancePoolManager {
     /// Functions that are used when rewards
     ///------------------------------------------------------------
 
+
     /***
-     * @notice - Receives NXM from Nexus Mutual Capital Pool and converts to wNXM
-     *         - After that, loads up rewards
+     * @notice - Converts NXM to wNXM. After that, loads up rewards
+     * @notice - NXM is provided by the provideNXMReward method of NexusMutualCapitalPool.sol
      **/
-    function convertFromNXMToWNXM(address _nexusMutual, uint receivedNXMAmount) public returns (bool) {
-        /// Receives NXM from Nexus Mutual
-        nxmToken.transferFrom(_nexusMutual, address(this), receivedNXMAmount);
+    function convertFromNXMToWNXM(address _nexusMutual, uint nxmAmount) public returns (bool) {
+        /// Receives NXM from the Nexus Mutual Capital Pool
+        nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
     
         /// Converts from NXM to wNXM
-        _convertFromNXMToWNXM(receivedNXMAmount);
+        _convertFromNXMToWNXM(nxmAmount);
 
         /// Loads up rewards
     }
@@ -104,7 +121,7 @@ contract NexusReinsurancePoolManager {
     /***
      * @notice - Converts (Redeem) LP tokens into underlying assets
      **/
-    function redeemLPTokenWithUnderlyingAsset() public returns (bool) {}
+    function convertLPTokenIntoUnderlyingAsset() public returns (bool) {}
 
 
     /***
@@ -119,10 +136,11 @@ contract NexusReinsurancePoolManager {
     ///------------------------------------------------------------
 
     /***
-     * @notice - Change reward rates
+     * @notice - Set reward rates per pool
      **/ 
-
-
+    function setRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
+        mainStorage.saveRewardRate(reinsurancePoolId, rewardRate);
+    }
 
 
     ///------------------------------------------------------------
@@ -147,5 +165,6 @@ contract NexusReinsurancePoolManager {
     ///------------------------------------------------------------
     /// Private functions
     ///------------------------------------------------------------
+
 
 }
