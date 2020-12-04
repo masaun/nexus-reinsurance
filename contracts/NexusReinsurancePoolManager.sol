@@ -30,7 +30,7 @@ import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 contract NexusReinsurancePoolManager {
     MainStorage public mainStorage;
     MCR public mcr;
-    INXMToken public nxmToken;
+    INXMToken public NXMToken;
     IPooledStaking public pooledStaking;
     ITokenData public tokenData;
     Claims public claims;
@@ -46,21 +46,21 @@ contract NexusReinsurancePoolManager {
     address NEXUS_REINSURANCE_POOL_FACTORY;
     address NEXUS_MUTUAL_CAPITAL_POOL;
 
-    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _nxmToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, IwNXM _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory) public {
+    constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _NXMToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, IwNXM _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory) public {
         mainStorage = _mainStorage;
 
         pooledStaking = _pooledStaking;
         tokenData = _tokenData;
 
         mcr = _mcr;
-        nxmToken = _nxmToken;
+        NXMToken = _NXMToken;
         claims = _claims;
         wNXMToken = _wNXMToken;
         nexusReinsurancePoolFactory = _nexusReinsurancePoolFactory;
         nexusMutualCapitalPool = _nexusMutualCapitalPool;
 
         MCR_ADDRESS = address(_mcr);
-        NXM_TOKEN = address(_nxmToken);
+        NXM_TOKEN = address(_NXMToken);
         POOLED_STAKING = address(_pooledStaking);
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
@@ -156,7 +156,7 @@ contract NexusReinsurancePoolManager {
     
     function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
         /// Mint WNXM token (and send those tokens into this contract)
-        nxmToken.approve(WNXM_TOKEN, receivedNXMAmount);
+        NXMToken.approve(WNXM_TOKEN, receivedNXMAmount);
         wNXMToken.wrap(receivedNXMAmount);
     }
 
