@@ -24,6 +24,8 @@ contract PoolForStakingLPToken {
     /***
      * @notice - Users stake Uniswap/Balancer LP tokens into the pool
      **/
-    function stakeLPTokens(IERC20 lpToken) public returns (bool) {}    
+    function stakeLPTokens(IERC20 lpToken, uint stakingAmount) public returns (bool) {
+        require(uni_ETH_DAI.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap LP token: transferFrom failed");
+    }    
 
 }
