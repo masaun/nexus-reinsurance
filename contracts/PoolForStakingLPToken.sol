@@ -23,9 +23,10 @@ contract PoolForStakingLPToken {
 
     /***
      * @notice - Users stake Uniswap/Balancer LP tokens into the pool
+     * @param lpToken - Staked LP tokens must be only high quality tokens such as ETH/DAI, ETH/USDC, etc...
      **/
     function stakeLPTokens(IERC20 lpToken, uint stakingAmount) public returns (bool) {
-        require(uni_ETH_DAI.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap LP token: transferFrom failed");
+        require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap LP token: transferFrom failed");
     }    
 
 }
