@@ -2,7 +2,9 @@ pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 /// [Note]: @openzeppelin/contracts v2.5.1
-import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+//import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+
+import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 
 
 /***
@@ -12,10 +14,10 @@ import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
  **/
 contract PoolForStakingLPToken {
 
-    IERC20 public uni_ETH_DAI;
-    IERC20 public uni_ETH_USDC;
+    IUniswapV2Pair public uni_ETH_DAI;
+    IUniswapV2Pair public uni_ETH_USDC;
 
-    constructor(IERC20 _uni_ETH_DAI, IERC20 _uni_ETH_USDC) public {
+    constructor(IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
         uni_ETH_DAI = _uni_ETH_DAI;
         uni_ETH_USDC = _uni_ETH_USDC;
     }
@@ -25,7 +27,7 @@ contract PoolForStakingLPToken {
      * @notice - Users stake Uniswap/Balancer LP tokens into the pool
      * @param lpToken - Staked LP tokens must be only high quality tokens such as ETH/DAI, ETH/USDC, etc...
      **/
-    function stakeLPTokens(IERC20 lpToken, uint stakingAmount) public returns (bool) {
+    function stakeLPTokens(IUniswapV2Pair lpToken, uint stakingAmount) public returns (bool) {
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap LP token: transferFrom failed");
     }    
 
