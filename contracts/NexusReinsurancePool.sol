@@ -43,7 +43,24 @@ contract NexusReinsurancePool {
         require (address(lpToken) == UNI_ETH_DAI || address(lpToken) == UNI_ETH_USDC, "Staked Uniswap's LP tokens must be ETH/DAI or ETH/USDC");
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap's LP tokens: transferFrom failed");
     }
-    
+
+
+    /***
+     * @notice - Generate rewards (wNXM) for stakers (staked users).
+     *         - When MCR % exceed threshold, generated reward will be distributed into stakers.
+     **/
+    function generateReward() public returns (bool) {
+        /// Generate reward (wNXM)
+
+        /// Distribute reward when MCR % exceed threshold,
+        /// [Todo]: Condition is needed to be fixed.
+        if (claimForTakingLPToken() == true) {
+            _distributeReward();
+        }
+    }
+
+    function _distributeReward() internal returns (bool) {}
+
 
     /***
      * @notice - Claim triggers are defined if MCR% drops below a certain threshold (90%), then transfer LP tokens worth 10% of MCR's ETH into NexusReinsurancePoolManager
