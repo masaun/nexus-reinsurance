@@ -24,10 +24,10 @@ contract PoolForStakingLPToken {
 
 
     /***
-     * @notice - Users stake Uniswap/Balancer LP tokens into the pool
+     * @notice - Users stake Uniswap's LP tokens into the pool
      * @param lpToken - Staked LP tokens must be only high quality tokens such as ETH/DAI, ETH/USDC, etc...
      **/
-    function stakeLPTokens(IUniswapV2Pair lpToken, uint stakingAmount) public returns (bool) {
+    function stakeUniswapLPToken(IUniswapV2Pair lpToken, uint stakingAmount) public returns (bool) {
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap LP token: transferFrom failed");
     }    
 
