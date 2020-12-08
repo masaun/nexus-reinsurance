@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 /// [Note]: @openzeppelin/contracts v2.5.1
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
+import { IwNXM } from "./IwNXM.sol";
 import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 
 /***
@@ -20,6 +21,8 @@ import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 contract NexusReinsurancePool {
     using SafeMath for uint;
 
+    IwNXM public wNXMToken;
+
     uint8 defaultMCRRate = 90;  /// [Note]: 90%
     uint8 currentMCRRate;       /// [Todo]: Retrieve current MCR rate
 
@@ -27,8 +30,9 @@ contract NexusReinsurancePool {
     address UNI_ETH_DAI;
     address UNI_ETH_USDC;
 
-    constructor(address payable _nexusReinsurancePoolManager, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
+    constructor(address payable _nexusReinsurancePoolManager, IwNXM _wNXMToken, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
         NEXUS_REINSURANCE_POOL_MANAGER = _nexusReinsurancePoolManager;
+        wNXMToken = _wNXMToken;
 
         UNI_ETH_DAI = address(_uni_ETH_DAI);
         UNI_ETH_USDC = address(_uni_ETH_USDC);
@@ -49,17 +53,20 @@ contract NexusReinsurancePool {
      * @notice - Generate rewards (wNXM) for stakers (staked users).
      *         - When MCR % exceed threshold, generated reward will be distributed into stakers.
      **/
-    function generateReward() public returns (bool) {
+    function generateReward(address staker) public returns (bool) {
         /// Generate reward (wNXM)
+        uint rewardAmount;
 
         /// Distribute reward when MCR % exceed threshold,
         /// [Todo]: Condition is needed to be fixed.
         if (claimForTakingLPToken() == true) {
-            _distributeReward();
+            _distributeReward(staker, rewardAmount);
         }
     }
 
-    function _distributeReward() internal returns (bool) {}
+    function _distributeReward(address staker, uint rewardAmount) internal returns (bool) {
+        wNXMToken.transfer(staker, rewardAmount);
+    }
 
 
     /***
