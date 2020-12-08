@@ -85,7 +85,8 @@ contract NexusReinsurancePoolManager {
         convertFromNXMToWNXM(nxmAmount);
 
         /// Create a new reinsurance pool
-        address newNexusReinsurancePool = nexusReinsurancePoolFactory.createNexusReinsurancePool();
+        address payable NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(this)));  /// [Note]: address(uint160()) is a method for converting address to payable   
+        address newNexusReinsurancePool = nexusReinsurancePoolFactory.createNexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
 
         /// Send wNXM as rewards into a new reinsurance pool
         uint rewardsAmount = wNXMToken.balanceOf(address(this));

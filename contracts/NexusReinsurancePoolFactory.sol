@@ -19,12 +19,12 @@ contract NexusReinsurancePoolFactory {
     IUniswapV2Pair public uni_ETH_USDC;
 
     address[] nexusReinsurancePools;
-    address payable NEXUS_REINSURANCE_POOL_MANAGER;  
+    //address payable NEXUS_REINSURANCE_POOL_MANAGER;
 
-    constructor(MainStorage _mainStorage, address payable _nexusReinsurancePoolManager, IwNXM _wNXMToken, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
+    constructor(MainStorage _mainStorage, IwNXM _wNXMToken, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
         mainStorage = _mainStorage;
 
-        NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(_nexusReinsurancePoolManager));  /// [Note]: address(uint160()) is a method for converting address to payable   
+        //NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(_nexusReinsurancePoolManager));  /// [Note]: address(uint160()) is a method for converting address to payable   
         wNXMToken = _wNXMToken; 
         uni_ETH_DAI = _uni_ETH_DAI;
         uni_ETH_USDC = _uni_ETH_USDC;
@@ -38,8 +38,8 @@ contract NexusReinsurancePoolFactory {
     /***
      * @notice - Create a new Nexus Reinsurance Pool
      **/
-    function createNexusReinsurancePool() public returns (address _nexusReinsurancePool) {
-        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER, wNXMToken, uni_ETH_DAI, uni_ETH_USDC);
+    function createNexusReinsurancePool(address payable _nexusReinsurancePoolManager) public returns (address _nexusReinsurancePool) {
+        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(_nexusReinsurancePoolManager, wNXMToken, uni_ETH_DAI, uni_ETH_USDC);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
 
         mainStorage.saveReinsurancePool(address(nexusReinsurancePool));
