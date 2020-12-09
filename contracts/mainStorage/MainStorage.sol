@@ -57,4 +57,16 @@ contract MainStorage is MainStorages {
         return currentReinsurancePoolId + 1;
     }
 
+    function getReinsurancePool(uint8 reinsurancePoolId) public view returns (ReinsurancePool memory _reinsurancePool) {
+        ReinsurancePool memory reinsurancePool = reinsurancePools[reinsurancePoolId];  /// Key: reinsurancePoolId
+        return reinsurancePool;
+    } 
+
+    function getRewardRate(uint8 reinsurancePoolId) public view returns (uint8 _rewardRate) {
+        ReinsurancePool memory reinsurancePool = reinsurancePools[reinsurancePoolId];  /// Key: reinsurancePoolId
+        uint8 rewardRate = reinsurancePool.rewardRate;  /// e.g. 10%
+
+        return rewardRate;
+    }    
+
 }
