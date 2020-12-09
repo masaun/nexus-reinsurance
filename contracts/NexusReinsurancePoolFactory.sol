@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 import { MainStorage } from  "./mainStorage/MainStorage.sol";
 import { IwNXM } from "./IwNXM.sol";
 import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
+import { NexusReinsurancePoolManager } from "./NexusReinsurancePoolManager.sol";
 import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 
 
@@ -38,8 +39,8 @@ contract NexusReinsurancePoolFactory {
     /***
      * @notice - Create a new Nexus Reinsurance Pool
      **/
-    function createNexusReinsurancePool(address payable _nexusReinsurancePoolManager) public returns (uint8 _newReinsurancePoolId, address _nexusReinsurancePool) {
-        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(_nexusReinsurancePoolManager, wNXMToken, uni_ETH_DAI, uni_ETH_USDC);
+    function createNexusReinsurancePool(NexusReinsurancePoolManager _nexusReinsurancePoolManager) public returns (uint8 _newReinsurancePoolId, address _nexusReinsurancePool) {
+        NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(mainStorage, _nexusReinsurancePoolManager, wNXMToken, uni_ETH_DAI, uni_ETH_USDC);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
 
         uint8 newReinsurancePoolId  = mainStorage.saveReinsurancePool(address(nexusReinsurancePool));

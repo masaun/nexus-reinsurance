@@ -4,7 +4,9 @@ pragma experimental ABIEncoderV2;
 /// [Note]: @openzeppelin/contracts v2.5.1
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
+import { MainStorage } from  "./mainStorage/MainStorage.sol";
 import { IwNXM } from "./IwNXM.sol";
+import { NexusReinsurancePoolManager } from "./NexusReinsurancePoolManager.sol";
 import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 
 /***
@@ -21,7 +23,10 @@ import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 contract NexusReinsurancePool {
     using SafeMath for uint;
 
+    MainStorage public mainStorage;
     IwNXM public wNXMToken;
+
+    address[] stakers;  /// [Note]: Stakers addresses list of this pool
 
     uint256 lockuUpPeriodOfLpToken = 90 days; /// [Note]: Lock up period of LP tokens. Default period is 90 days
     uint8 defaultMCRRate = 90;  /// [Note]: 90%
@@ -31,10 +36,11 @@ contract NexusReinsurancePool {
     address UNI_ETH_DAI;
     address UNI_ETH_USDC;
 
-    constructor(address payable _nexusReinsurancePoolManager, IwNXM _wNXMToken, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
-        NEXUS_REINSURANCE_POOL_MANAGER = _nexusReinsurancePoolManager;
+    constructor(MainStorage _mainStorage, NexusReinsurancePoolManager _nexusReinsurancePoolManager, IwNXM _wNXMToken, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
+        mainStorage = _mainStorage;
         wNXMToken = _wNXMToken;
 
+        NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(_nexusReinsurancePoolManager)));
         UNI_ETH_DAI = address(_uni_ETH_DAI);
         UNI_ETH_USDC = address(_uni_ETH_USDC);
     }
@@ -47,6 +53,7 @@ contract NexusReinsurancePool {
     function stakeUniswapLPToken(IUniswapV2Pair lpToken, uint stakingAmount) public returns (bool) {
         require (address(lpToken) == UNI_ETH_DAI || address(lpToken) == UNI_ETH_USDC, "Staked Uniswap's LP tokens must be ETH/DAI or ETH/USDC");
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap's LP tokens: transferFrom failed");
+        stakers.push(msg.sender);
     }
 
 
@@ -54,14 +61,25 @@ contract NexusReinsurancePool {
      * @notice - Generate rewards (wNXM) for stakers (staked users).
      *         - When MCR % exceed threshold, generated reward will be distributed into stakers.
      **/
-    function generateReward(address staker) public returns (bool) {
+    function generateReward(uint8 nexusReinsurancePoolId) public returns (bool) {
+        /// [TODO]: Get total staked LP tokens amount
+        uint totalStakedLPTokensAmount;
+
+        /// Get reward rate of this pool
+        uint8 rewardRate = mainStorage.getRewardRate(nexusReinsurancePoolId);
+
         /// Generate reward (wNXM)
-        uint rewardAmount;
+        uint allRewardAmount = totalStakedLPTokensAmount * rewardRate;
+
+        /// Get reward amount per a staker
+        uint rewardAmount = allRewardAmount.div(stakers.length);
 
         /// Distribute reward when MCR % exceed threshold,
         /// [Todo]: Condition is needed to be fixed.
         if (claimForTakingLPToken() == true) {
-            _distributeReward(staker, rewardAmount);
+            for (uint i; i < stakers.length; i++) {
+                _distributeReward(stakers[i], rewardAmount);
+            }
         }
     }
 
