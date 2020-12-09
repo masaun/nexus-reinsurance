@@ -26,7 +26,8 @@ contract NexusReinsurancePool {
     MainStorage public mainStorage;
     IwNXM public wNXMToken;
 
-    address[] stakers;  /// [Note]: Stakers addresses list of this pool
+    address[] stakers;              /// [Note]: Stakers addresses list of this pool
+    uint totalStakedLPTokensAmount; /// [TODO]: Total staked LP tokens amount
 
     uint256 lockuUpPeriodOfLpToken = 90 days; /// [Note]: Lock up period of LP tokens. Default period is 90 days
     uint8 defaultMCRRate = 90;  /// [Note]: 90%
@@ -54,6 +55,7 @@ contract NexusReinsurancePool {
         require (address(lpToken) == UNI_ETH_DAI || address(lpToken) == UNI_ETH_USDC, "Staked Uniswap's LP tokens must be ETH/DAI or ETH/USDC");
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap's LP tokens: transferFrom failed");
         stakers.push(msg.sender);
+        totalStakedLPTokensAmount += stakingAmount;
     }
 
 
@@ -62,9 +64,6 @@ contract NexusReinsurancePool {
      *         - When MCR % exceed threshold, generated reward will be distributed into stakers.
      **/
     function generateReward(uint8 nexusReinsurancePoolId) public returns (bool) {
-        /// [TODO]: Get total staked LP tokens amount
-        uint totalStakedLPTokensAmount;
-
         /// Get reward rate of this pool
         uint8 rewardRate = mainStorage.getRewardRate(nexusReinsurancePoolId);
 
