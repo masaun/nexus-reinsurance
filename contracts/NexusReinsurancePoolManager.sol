@@ -77,19 +77,38 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      * @param nxmAmount - NXM token amount is specified when this method is executed
      **/
-    function createNexusReinsurancePool(uint nxmAmount) public returns (bool) {
+    function createNexusReinsurancePool(uint nxmAmount, uint8 rewardRate) public returns (bool) {
         /// Receives NXM from the Nexus Mutual Capital Pool
         nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
 
         /// Convert received NXM to wNXM
-        convertFromNXMToWNXM(nxmAmount);
+        _convertFromNXMToWNXM(nxmAmount);
 
         /// Create a new reinsurance pool
-        address newNexusReinsurancePool = nexusReinsurancePoolFactory.createNexusReinsurancePool();
+        //address payable NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(this)));  /// [Note]: address(uint160()) is a method for converting address to payable
+        uint8 newNexusReinsuranceId;
+        address newNexusReinsurancePool;
 
-        /// Send wNXM as rewards into a new reinsurance pool
+        (newNexusReinsuranceId, newNexusReinsurancePool) = nexusReinsurancePoolFactory.createNexusReinsurancePool(this);
+
+        /// Set reward rate of a new reinsurance pool
+        setRewardRate(newNexusReinsuranceId, rewardRate);
+
+        /// Loads up rewards (wNXM tokens) into specified reinsurance pool
         uint rewardsAmount = wNXMToken.balanceOf(address(this));
-        sendWNXMRewardToReinsurancePool(newNexusReinsurancePool, rewardsAmount);
+        _loadUpRewards(newNexusReinsurancePool, rewardsAmount);
+    }
+
+
+    ///------------------------------------------------------------
+    /// Configuration related functions of Nexus Mutual
+    ///------------------------------------------------------------
+
+    /***
+     * @notice - Set reward rates per pool
+     **/ 
+    function setRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
+        mainStorage.saveRewardRate(reinsurancePoolId, rewardRate);
     }
 
 
@@ -97,22 +116,6 @@ contract NexusReinsurancePoolManager {
     /// Functions that are used when rewards
     ///------------------------------------------------------------
 
-    /***
-     * @notice - Converts NXM to wNXM. After that, loads up rewards
-     **/
-    function convertFromNXMToWNXM(uint nxmAmount) public returns (bool) {    
-        /// Converts from NXM to wNXM
-        _convertFromNXMToWNXM(nxmAmount);
-
-        /// Loads up rewards
-    }
-
-    /***
-     * @notice - Sends wNXM rewards to the Reinsurance pools.
-     **/
-    function sendWNXMRewardToReinsurancePool(address reinsurancePool, uint rewardsAmount) public returns (bool) {
-        wNXMToken.transfer(reinsurancePool, rewardsAmount);
-    }    
 
 
     ///------------------------------------------------------------
@@ -138,28 +141,26 @@ contract NexusReinsurancePoolManager {
 
 
 
-    ///------------------------------------------------------------
-    /// Configuration related functions of Nexus Mutual
-    ///------------------------------------------------------------
-
-    /***
-     * @notice - Set reward rates per pool
-     **/ 
-    function setRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
-        mainStorage.saveRewardRate(reinsurancePoolId, rewardRate);
-    }
-
 
     ///------------------------------------------------------------
     /// Internal functions
     ///------------------------------------------------------------
-    
+
+    /***
+     * @notice - Converts NXM to wNXM. After that, loads up rewards
+     **/
     function _convertFromNXMToWNXM(uint receivedNXMAmount) internal returns (bool) {
         /// Mint WNXM token (and send those tokens into this contract)
         NXMToken.approve(WNXM_TOKEN, receivedNXMAmount);
         wNXMToken.wrap(receivedNXMAmount);
     }
 
+    /***
+     * @notice - load up rewards (wNXM tokens) into the Reinsurance pools.
+     **/
+    function _loadUpRewards(address reinsurancePool, uint rewardsAmount) internal returns (bool) {
+        wNXMToken.transfer(reinsurancePool, rewardsAmount);
+    }
 
 
 

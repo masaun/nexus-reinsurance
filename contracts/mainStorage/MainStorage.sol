@@ -20,12 +20,14 @@ contract MainStorage is MainStorages {
     /***
      * @notice - Save a reinsurance pool's data
      **/ 
-    function saveReinsurancePool(address reinsurancePoolAddress) public returns (bool) {
+    function saveReinsurancePool(address reinsurancePoolAddress) public returns (uint8 _newReinsurancePoolId) {
         uint8 newReinsurancePoolId = getNextReinsurancePoolId();
         currentReinsurancePoolId++;
 
         ReinsurancePool storage reinsurancePool = reinsurancePools[newReinsurancePoolId];  /// Key: reinsurancePoolId
         reinsurancePool.reinsurancePoolAddress = reinsurancePoolAddress;
+    
+        return newReinsurancePoolId;
     }
 
     /***
@@ -54,5 +56,17 @@ contract MainStorage is MainStorages {
     function getNextReinsurancePoolId() private view returns (uint8 nextReinsurancePoolId) {
         return currentReinsurancePoolId + 1;
     }
+
+    function getReinsurancePool(uint8 reinsurancePoolId) public view returns (ReinsurancePool memory _reinsurancePool) {
+        ReinsurancePool memory reinsurancePool = reinsurancePools[reinsurancePoolId];  /// Key: reinsurancePoolId
+        return reinsurancePool;
+    } 
+
+    function getRewardRate(uint8 reinsurancePoolId) public view returns (uint8 _rewardRate) {
+        ReinsurancePool memory reinsurancePool = reinsurancePools[reinsurancePoolId];  /// Key: reinsurancePoolId
+        uint8 rewardRate = reinsurancePool.rewardRate;  /// e.g. 10%
+
+        return rewardRate;
+    }    
 
 }
