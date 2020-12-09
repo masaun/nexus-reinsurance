@@ -7,6 +7,6 @@ import "./MainObjects.sol";
 /// main storage
 contract MainStorages is MainObjects {
 
-    mapping (uint8 => ReinsurancePool) reinsurancePools;
+    mapping (uint8 => ReinsurancePool) reinsurancePools;  /// [Key]: reinsurancePoolId
 
 }

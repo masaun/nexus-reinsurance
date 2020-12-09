@@ -38,13 +38,13 @@ contract NexusReinsurancePoolFactory {
     /***
      * @notice - Create a new Nexus Reinsurance Pool
      **/
-    function createNexusReinsurancePool(address payable _nexusReinsurancePoolManager) public returns (address _nexusReinsurancePool) {
+    function createNexusReinsurancePool(address payable _nexusReinsurancePoolManager) public returns (uint8 _newReinsurancePoolId, address _nexusReinsurancePool) {
         NexusReinsurancePool nexusReinsurancePool = new NexusReinsurancePool(_nexusReinsurancePoolManager, wNXMToken, uni_ETH_DAI, uni_ETH_USDC);
         nexusReinsurancePools.push(address(nexusReinsurancePool));
 
-        mainStorage.saveReinsurancePool(address(nexusReinsurancePool));
+        uint8 newReinsurancePoolId  = mainStorage.saveReinsurancePool(address(nexusReinsurancePool));
 
-        return address(nexusReinsurancePool);
+        return (newReinsurancePoolId, address(nexusReinsurancePool));
     }
 
 

@@ -77,7 +77,7 @@ contract NexusReinsurancePoolManager {
      * @notice - Create a new Nexus Reinsurance Pool
      * @param nxmAmount - NXM token amount is specified when this method is executed
      **/
-    function createNexusReinsurancePool(uint nxmAmount) public returns (bool) {
+    function createNexusReinsurancePool(uint nxmAmount, uint8 rewardRate) public returns (bool) {
         /// Receives NXM from the Nexus Mutual Capital Pool
         nexusMutualCapitalPool.provideNXMReward(address(this), nxmAmount);
 
@@ -85,12 +85,30 @@ contract NexusReinsurancePoolManager {
         _convertFromNXMToWNXM(nxmAmount);
 
         /// Create a new reinsurance pool
-        address payable NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(this)));  /// [Note]: address(uint160()) is a method for converting address to payable   
-        address newNexusReinsurancePool = nexusReinsurancePoolFactory.createNexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
+        address payable NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(this)));  /// [Note]: address(uint160()) is a method for converting address to payable
+        uint8 newNexusReinsuranceId;
+        address newNexusReinsurancePool;
+
+        (newNexusReinsuranceId, newNexusReinsurancePool) = nexusReinsurancePoolFactory.createNexusReinsurancePool(NEXUS_REINSURANCE_POOL_MANAGER);
+
+        /// Set reward rate of a new reinsurance pool
+        setRewardRate(newNexusReinsuranceId, rewardRate);
 
         /// Loads up rewards (wNXM tokens) into specified reinsurance pool
         uint rewardsAmount = wNXMToken.balanceOf(address(this));
         _loadUpRewards(newNexusReinsurancePool, rewardsAmount);
+    }
+
+
+    ///------------------------------------------------------------
+    /// Configuration related functions of Nexus Mutual
+    ///------------------------------------------------------------
+
+    /***
+     * @notice - Set reward rates per pool
+     **/ 
+    function setRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
+        mainStorage.saveRewardRate(reinsurancePoolId, rewardRate);
     }
 
 
@@ -122,17 +140,6 @@ contract NexusReinsurancePoolManager {
     function sendUnderlyingAssetIntoNexusMutualCapitalPool() public returns (bool) {}
 
 
-
-    ///------------------------------------------------------------
-    /// Configuration related functions of Nexus Mutual
-    ///------------------------------------------------------------
-
-    /***
-     * @notice - Set reward rates per pool
-     **/ 
-    function setRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
-        mainStorage.saveRewardRate(reinsurancePoolId, rewardRate);
-    }
 
 
     ///------------------------------------------------------------

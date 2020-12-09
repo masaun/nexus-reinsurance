@@ -23,6 +23,7 @@ contract NexusReinsurancePool {
 
     IwNXM public wNXMToken;
 
+    uint256 lockuUpPeriodOfLpToken = 90 days; /// [Note]: Lock up period of LP tokens. Default period is 90 days
     uint8 defaultMCRRate = 90;  /// [Note]: 90%
     uint8 currentMCRRate;       /// [Todo]: Retrieve current MCR rate
 

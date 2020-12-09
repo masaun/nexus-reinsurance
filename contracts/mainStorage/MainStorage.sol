@@ -20,12 +20,14 @@ contract MainStorage is MainStorages {
     /***
      * @notice - Save a reinsurance pool's data
      **/ 
-    function saveReinsurancePool(address reinsurancePoolAddress) public returns (bool) {
+    function saveReinsurancePool(address reinsurancePoolAddress) public returns (uint8 _newReinsurancePoolId) {
         uint8 newReinsurancePoolId = getNextReinsurancePoolId();
         currentReinsurancePoolId++;
 
         ReinsurancePool storage reinsurancePool = reinsurancePools[newReinsurancePoolId];  /// Key: reinsurancePoolId
         reinsurancePool.reinsurancePoolAddress = reinsurancePoolAddress;
+    
+        return newReinsurancePoolId;
     }
 
     /***
