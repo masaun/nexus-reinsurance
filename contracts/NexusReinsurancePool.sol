@@ -27,7 +27,8 @@ contract NexusReinsurancePool {
     IwNXM public wNXMToken;
 
     address[] stakers;              /// [Note]: Stakers addresses list of this pool
-    uint totalStakedLPTokensAmount; /// [TODO]: Total staked LP tokens amount
+    mapping (address => uint) totalStakedLPTokensAmount;  /// [Key]: LP tokens address (ETH/DAI or ETH/USDC)
+    //uint totalStakedLPTokensAmount; /// [TODO]: Total staked LP tokens amount
 
     uint256 lockuUpPeriodOfLpToken = 90 days; /// [Note]: Lock up period of LP tokens. Default period is 90 days
     uint8 defaultMCRRate = 90;  /// [Note]: 90%
@@ -55,7 +56,8 @@ contract NexusReinsurancePool {
         require (address(lpToken) == UNI_ETH_DAI || address(lpToken) == UNI_ETH_USDC, "Staked Uniswap's LP tokens must be ETH/DAI or ETH/USDC");
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap's LP tokens: transferFrom failed");
         stakers.push(msg.sender);
-        totalStakedLPTokensAmount += stakingAmount;
+        totalStakedLPTokensAmount[address(lpToken)] += stakingAmount;
+        //totalStakedLPTokensAmount += stakingAmount;
     }
 
 
@@ -63,12 +65,13 @@ contract NexusReinsurancePool {
      * @notice - Generate rewards (wNXM) for stakers (staked users).
      *         - When MCR % exceed threshold, generated reward will be distributed into stakers.
      **/
-    function generateReward(uint8 nexusReinsurancePoolId) public returns (bool) {
+    function generateReward(uint8 nexusReinsurancePoolId, IUniswapV2Pair lpToken) public returns (bool) {
         /// Get reward rate of this pool
         uint8 rewardRate = mainStorage.getRewardRate(nexusReinsurancePoolId);
 
-        /// Generate reward (wNXM)
-        uint allRewardAmount = totalStakedLPTokensAmount * rewardRate;
+        /// Generate reward (wNXM) 
+        /// [Note]: totalStakedLPTokensAmount is either ETH/DAI amount or ETH/USDC amount
+        uint allRewardAmount = totalStakedLPTokensAmount[address(lpToken)] * rewardRate;
 
         /// Get reward amount per a staker
         uint rewardAmount = allRewardAmount.div(stakers.length);
