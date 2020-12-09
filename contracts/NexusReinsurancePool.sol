@@ -26,7 +26,7 @@ contract NexusReinsurancePool {
     MainStorage public mainStorage;
     IwNXM public wNXMToken;
 
-    address[] stakers;              /// [Note]: Stakers addresses list of this pool
+    address[] stakersList;              /// [Note]: Stakers addresses list of this pool
     mapping (address => uint) totalStakedLPTokensAmount;  /// [Key]: LP tokens address (ETH/DAI or ETH/USDC)
     //uint totalStakedLPTokensAmount; /// [TODO]: Total staked LP tokens amount
 
@@ -55,9 +55,11 @@ contract NexusReinsurancePool {
     function stakeUniswapLPToken(IUniswapV2Pair lpToken, uint stakingAmount) public returns (bool) {
         require (address(lpToken) == UNI_ETH_DAI || address(lpToken) == UNI_ETH_USDC, "Staked Uniswap's LP tokens must be ETH/DAI or ETH/USDC");
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap's LP tokens: transferFrom failed");
-        stakers.push(msg.sender);
+        stakersList.push(msg.sender);
         totalStakedLPTokensAmount[address(lpToken)] += stakingAmount;
         //totalStakedLPTokensAmount += stakingAmount;
+
+        uint8 newStakerId = mainStorage.saveStakerData(msg.sender, lpToken, stakingAmount, now);
     }
 
 
@@ -74,13 +76,13 @@ contract NexusReinsurancePool {
         uint allRewardAmount = totalStakedLPTokensAmount[address(lpToken)] * rewardRate;
 
         /// Get reward amount per a staker
-        uint rewardAmount = allRewardAmount.div(stakers.length);
+        uint rewardAmount = allRewardAmount.div(stakersList.length);
 
         /// Distribute reward when MCR % exceed threshold,
         /// [Todo]: Condition is needed to be fixed.
         if (claimForTakingLPToken() == true) {
-            for (uint i; i < stakers.length; i++) {
-                _distributeReward(stakers[i], rewardAmount);
+            for (uint i; i < stakersList.length; i++) {
+                _distributeReward(stakersList[i], rewardAmount);
             }
         }
     }
