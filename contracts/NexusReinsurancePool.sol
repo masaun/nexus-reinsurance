@@ -52,7 +52,7 @@ contract NexusReinsurancePool {
      * @notice - Users stake Uniswap's LP tokens into the pool
      * @param lpToken - Staked LP tokens must be only high quality tokens such as ETH/DAI, ETH/USDC, etc...
      **/
-    function stakeUniswapLPToken(IUniswapV2Pair lpToken, uint stakingAmount) public returns (bool) {
+    function stakeUniswapLPToken(IUniswapV2Pair lpToken, uint stakingAmount) public returns (uint8 _newStakerId) {
         require (address(lpToken) == UNI_ETH_DAI || address(lpToken) == UNI_ETH_USDC, "Staked Uniswap's LP tokens must be ETH/DAI or ETH/USDC");
         require(lpToken.transferFrom(msg.sender, address(this), stakingAmount), "Uniswap's LP tokens: transferFrom failed");
         stakersList.push(msg.sender);
@@ -60,6 +60,7 @@ contract NexusReinsurancePool {
         //totalStakedLPTokensAmount += stakingAmount;
 
         uint8 newStakerId = mainStorage.saveStakerData(msg.sender, lpToken, stakingAmount, now);
+        return newStakerId;
     }
 
 
