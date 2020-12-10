@@ -104,7 +104,6 @@ contract NexusReinsurancePool {
         if (globalCapacityLimit > currentMCRRate) {
             /// Compute transferred LP tokens worth 10% of MCR's ETH
             uint8 withdrawnPercentage = 100 - currentMCRRate;
-            uint MCREth = getMCREth();
 
             /// Transfer LP tokens into the NexusReinsurancePoolManager contract
             uint amount = lpToken.balanceOf(address(this)).mul(uint256(withdrawnPercentage)).div(100);
@@ -113,8 +112,9 @@ contract NexusReinsurancePool {
     }
     
     function getGlobalCapacityLimit() internal view returns (uint _globalCapacityLimit) {
-        /// [Todo]:
-        uint globalCapacityLimit;
+        /// [Note]: Global Capacity Limit = MCReth x 20%
+        uint MCREth = getMCREth();
+        uint globalCapacityLimit = MCREth.mul(20).div(100);
         return globalCapacityLimit;
     }
 
