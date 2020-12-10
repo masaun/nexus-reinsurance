@@ -110,7 +110,7 @@ contract NexusReinsurancePool {
             NEXUS_REINSURANCE_POOL_MANAGER.transfer(claimedLPToken, claimedAmount);
 
             /// Record a claim data
-            mainStorage.saveClaimData(, claimedAmount);
+            mainStorage.saveClaimData(claimedLPToken, claimedAmount);
         }
     }
     
