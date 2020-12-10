@@ -16,6 +16,7 @@ contract MainStorage is MainStorages {
 
     uint8 public currentStakerId;           /// Staker ID
     uint8 public currentReinsurancePoolId;  /// Reinsurance Pool ID
+    uint8 public currentClaimId;            /// Claim ID
 
     constructor() public {}
 
@@ -50,6 +51,21 @@ contract MainStorage is MainStorages {
     }
 
     /***
+     * @notice - Save a claim data
+     * @dev - Claimer is only ReinsurancePoolManager contract
+     **/ 
+    function saveClaimData(IUniswapV2Pair claimedLPToken, uint claimedLPTokenAmount) public returns (uint8 _newClaimId) {
+        uint8 newClaimId = getNextClaimId();
+        currentClaimId++;
+
+        Claim storage claim = claims[newClaimId];  /// Key: claimId
+        claim.claimedLPToken = claimedLPToken;
+        claim.claimedLPTokenAmount = claimedLPTokenAmount;
+        claim.claimedTimestamp = now;
+        return newReinsurancePoolId;
+    }
+
+    /***
      * @notice - Save reward rates per pool
      **/ 
     function saveRewardRate(uint8 reinsurancePoolId, uint8 rewardRate) public returns (bool) {
@@ -78,6 +94,10 @@ contract MainStorage is MainStorages {
 
     function getNextReinsurancePoolId() private view returns (uint8 nextReinsurancePoolId) {
         return currentReinsurancePoolId + 1;
+    }
+
+    function getNextClaimId() private view returns (uint8 nextClaimId) {
+        return currentClaimId + 1;
     }
 
     function getStaker(uint8 stakerId) public view returns (Staker memory _staker) {
