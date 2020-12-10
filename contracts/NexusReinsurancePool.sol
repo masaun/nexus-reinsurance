@@ -98,7 +98,7 @@ contract NexusReinsurancePool {
      * @dev - MCReth is the Minimum Capital Requirement in ETH terms.
      * @dev - Global Capacity Limit = MCReth x 20%
      **/
-    function claimForTakingLPToken(IUniswapV2Pair lpToken) public returns (bool) {
+    function claimForTakingLPToken(IUniswapV2Pair claimedLPToken) public returns (bool) {
         uint globalCapacityLimit = getGlobalCapacityLimit();
         uint8 currentMCRRate = getMCRRate();
         if (globalCapacityLimit > currentMCRRate) {
@@ -106,8 +106,11 @@ contract NexusReinsurancePool {
             uint8 withdrawnPercentage = 100 - currentMCRRate;
 
             /// Transfer LP tokens into the NexusReinsurancePoolManager contract
-            uint amount = lpToken.balanceOf(address(this)).mul(uint256(withdrawnPercentage)).div(100);
-            NEXUS_REINSURANCE_POOL_MANAGER.transfer(amount);
+            uint claimedAmount = claimedLPToken.balanceOf(address(this)).mul(uint256(withdrawnPercentage)).div(100);
+            NEXUS_REINSURANCE_POOL_MANAGER.transfer(claimedLPToken, claimedAmount);
+
+            /// Record a claim data
+            mainStorage.saveClaimData(, claimedAmount);
         }
     }
     
