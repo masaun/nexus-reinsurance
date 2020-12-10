@@ -81,10 +81,8 @@ contract NexusReinsurancePool {
 
         /// Distribute reward when MCR % exceed threshold,
         /// [Todo]: Condition is needed to be fixed.
-        if (claimForTakingLPToken() == true) {
-            for (uint i; i < stakersList.length; i++) {
-                _distributeReward(stakersList[i], rewardAmount);
-            }
+        for (uint i; i < stakersList.length; i++) {
+            _distributeReward(stakersList[i], rewardAmount);
         }
     }
 
@@ -95,20 +93,42 @@ contract NexusReinsurancePool {
 
     /***
      * @notice - Claim triggers are defined if MCR% drops below a certain threshold (90%), then transfer LP tokens worth 10% of MCR's ETH into NexusReinsurancePoolManager
+     * @dev - MCR% represents the ratio of funds held in the mutual (in ETH terms) vs the funds required to back covers written. 
+     *        (If there are large claims then the MCR% could drop as funds held would decrease.)
+     * @dev - MCReth is the Minimum Capital Requirement in ETH terms.
+     * @dev - Global Capacity Limit = MCReth x 20%
      **/
-    function claimForTakingLPToken() public returns (bool) {
-        if (currentMCRRate < defaultMCRRate) {
+    function claimForTakingLPToken(IUniswapV2Pair lpToken) public returns (bool) {
+        uint globalCapacityLimit = getGlobalCapacityLimit();
+        uint8 currentMCRRate = getMCRRate();
+        if (globalCapacityLimit > currentMCRRate) {
             /// Compute transferred LP tokens worth 10% of MCR's ETH
             uint8 withdrawnPercentage = 100 - currentMCRRate;
-            uint MCREth;
+            uint MCREth = getMCREth();
 
             /// Transfer LP tokens into the NexusReinsurancePoolManager contract
-            uint amount = MCREth.mul(uint256(withdrawnPercentage)).div(100);
+            uint amount = lpToken.balanceOf(address(this)).mul(uint256(withdrawnPercentage)).div(100);
             NEXUS_REINSURANCE_POOL_MANAGER.transfer(amount);
         }
     }
     
+    function getGlobalCapacityLimit() internal view returns (uint _globalCapacityLimit) {
+        /// [Todo]:
+        uint globalCapacityLimit;
+        return globalCapacityLimit;
+    }
 
+    function getMCRRate() internal view returns (uint8 _currentMCRRate) {
+        /// [Todo]:
+        uint8 currentMCRRate;
+        return currentMCRRate;
+    }
+
+    function getMCREth() internal view returns (uint currentMCREthAmount) {
+        /// [Todo]:
+        uint MCREth;
+        return MCREth;
+    }
 
 
     ///------------------------------------------------------------
