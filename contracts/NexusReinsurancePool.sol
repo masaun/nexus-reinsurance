@@ -107,7 +107,7 @@ contract NexusReinsurancePool {
 
             /// Transfer LP tokens into the NexusReinsurancePoolManager contract
             uint claimedAmount = claimedLPToken.balanceOf(address(this)).mul(uint256(withdrawnPercentage)).div(100);
-            NEXUS_REINSURANCE_POOL_MANAGER.transfer(claimedLPToken, claimedAmount);
+            claimedLPToken.transfer(NEXUS_REINSURANCE_POOL_MANAGER, claimedAmount);
 
             /// Record a claim data
             mainStorage.saveClaimData(claimedLPToken, claimedAmount);
