@@ -11,6 +11,7 @@ import { INXMToken } from "./nexus-mutual/abstract/INXMToken.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
 
 import { IwNXM } from "./IwNXM.sol";
+import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
 import { NexusReinsurancePoolFactory } from "./NexusReinsurancePoolFactory.sol";
 import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 
@@ -124,8 +125,12 @@ contract NexusReinsurancePoolManager {
 
     /***
      * @notice - Receives LP tokens in the event of a claim
+     * @param nexusReinsurancePool - Specified NexusReinsurancePool contract
+     * @param claimedLPToken - LPToken that this contract will claim
      **/
-    function receiveLPToken() public returns (bool) {}
+    function receiveLPToken(NexusReinsurancePool nexusReinsurancePool, IUniswapV2Pair claimedLPToken) public returns (bool) {
+        nexusReinsurancePool.claimForTakingLPToken(claimedLPToken);
+    }
     
 
     /***
