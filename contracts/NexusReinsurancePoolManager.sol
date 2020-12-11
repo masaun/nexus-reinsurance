@@ -15,6 +15,8 @@ import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
 import { NexusReinsurancePoolFactory } from "./NexusReinsurancePoolFactory.sol";
 import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
 
+import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
+
 
 /***
  * @notice - The interface between the reinsurance pool and Nexus Mutual.

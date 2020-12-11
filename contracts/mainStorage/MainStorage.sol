@@ -62,7 +62,8 @@ contract MainStorage is MainStorages {
         claim.claimedLPToken = claimedLPToken;
         claim.claimedLPTokenAmount = claimedLPTokenAmount;
         claim.claimedTimestamp = now;
-        return newReinsurancePoolId;
+        
+        return newClaimId;
     }
 
     /***

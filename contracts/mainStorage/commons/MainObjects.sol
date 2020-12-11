@@ -17,4 +17,10 @@ contract MainObjects {
         uint8 rewardRate;
     }
 
+    struct Claim {  /// [Key]: claim ID
+        IUniswapV2Pair claimedLPToken;
+        uint claimedLPTokenAmount;
+        uint claimedTimestamp;
+    }
+
 }
