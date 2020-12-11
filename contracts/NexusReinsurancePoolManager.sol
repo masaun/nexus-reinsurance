@@ -140,24 +140,22 @@ contract NexusReinsurancePoolManager {
      * @notice - Converts (Redeem) LP tokens into underlying assets
      **/
     function convertLPTokenIntoUnderlyingAsset(
-        address tokenA,
-        address tokenB,
+        address underlyingToken,
         uint liquidity,
-        uint amountAMin,
-        uint amountBMin,
+        uint amountTokenMin,
+        uint amountETHMin,
         address to,
         uint deadline
     ) public returns (bool) {
         /// [Todo]: Add method of Uniswap in order to redeem LP tokens with underlying assets (e.g. DAI, ETH, USDC, etc...)
-        uint amountA;
-        uint amountB;
-        (amountA, amountB) = uniswapV2Router02.removeLiquidity(tokenA, 
-                                                              tokenB, 
-                                                              liquidity,
-                                                              amountAMin,
-                                                              amountBMin,
-                                                              to,
-                                                              deadline);
+        uint amountToken;
+        uint amountETH;
+        (amountToken, amountETH) = uniswapV2Router02.removeLiquidityETH(underlyingToken, 
+                                                                        liquidity,
+                                                                        amountTokenMin,
+                                                                        amountETHMin,
+                                                                        to,
+                                                                        deadline);
     }
 
 
