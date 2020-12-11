@@ -25,7 +25,7 @@ contract NexusReinsurancePoolFactory {
     constructor(MainStorage _mainStorage, IwNXM _wNXMToken, IUniswapV2Pair _uni_ETH_DAI, IUniswapV2Pair _uni_ETH_USDC) public {
         mainStorage = _mainStorage;
 
-        //NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(_nexusReinsurancePoolManager));  /// [Note]: address(uint160()) is a method for converting address to payable   
+        //NEXUS_REINSURANCE_POOL_MANAGER = address(uint160(address(_nexusReinsurancePoolManager)));  /// [Note]: address(uint160()) is a method for converting address to payable   
         wNXMToken = _wNXMToken; 
         uni_ETH_DAI = _uni_ETH_DAI;
         uni_ETH_USDC = _uni_ETH_USDC;

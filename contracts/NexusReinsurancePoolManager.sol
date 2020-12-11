@@ -1,6 +1,9 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
+/// [Note]: @openzeppelin/contracts v2.5.1
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 import { MainStorage } from  "./mainStorage/MainStorage.sol";
 
 import { IPooledStaking } from "./nexus-mutual/interfaces/IPooledStaking.sol";
@@ -49,7 +52,7 @@ contract NexusReinsurancePoolManager {
     address CLAIMS; 
     address WNXM_TOKEN;
     address NEXUS_REINSURANCE_POOL_FACTORY;
-    address NEXUS_MUTUAL_CAPITAL_POOL;
+    address payable NEXUS_MUTUAL_CAPITAL_POOL;
 
     constructor(MainStorage _mainStorage, MCR _mcr, INXMToken _NXMToken, IPooledStaking _pooledStaking, ITokenData _tokenData, Claims _claims, IwNXM _wNXMToken, NexusMutualCapitalPool _nexusMutualCapitalPool, NexusReinsurancePoolFactory _nexusReinsurancePoolFactory, IUniswapV2Router02 _uniswapV2Router02) public {
         mainStorage = _mainStorage;
@@ -69,7 +72,7 @@ contract NexusReinsurancePoolManager {
         CLAIMS = address(_claims);
         WNXM_TOKEN = address(_wNXMToken);
         NEXUS_REINSURANCE_POOL_FACTORY = address(_nexusReinsurancePoolFactory);
-        NEXUS_MUTUAL_CAPITAL_POOL = address(_nexusMutualCapitalPool);
+        NEXUS_MUTUAL_CAPITAL_POOL = address(uint160(address(_nexusMutualCapitalPool)));  /// [Note]: address(uint160()) is a method for converting address to payable   
     }
 
 
@@ -138,33 +141,29 @@ contract NexusReinsurancePoolManager {
 
     /***
      * @notice - Converts (Redeem) LP tokens into underlying assets
+     *         - And underlying assets are transferred into the Nexus Mutual Capital Pool
      **/
     function convertLPTokenIntoUnderlyingAsset(
-        address underlyingToken,
+        address _underlyingToken,
         uint liquidity,
         uint amountTokenMin,
         uint amountETHMin,
         address to,
         uint deadline
     ) public returns (bool) {
-        /// [Todo]: Add method of Uniswap in order to redeem LP tokens with underlying assets (e.g. DAI, ETH, USDC, etc...)
-        uint amountToken;
+        /// Redeem LP tokens with underlying assets (e.g. DAI, ETH, USDC, etc...)
+        uint amountUnderlyingToken;
         uint amountETH;
-        (amountToken, amountETH) = uniswapV2Router02.removeLiquidityETH(underlyingToken, 
+        (amountUnderlyingToken, amountETH) = uniswapV2Router02.removeLiquidityETH(_underlyingToken, 
                                                                         liquidity,
                                                                         amountTokenMin,
                                                                         amountETHMin,
                                                                         to,
                                                                         deadline);
+
+        /// Transfer underlyingToken to the Nexus Mutual Capital Pool
+        _transferUnderlyingAssetsIntoNexusMutualCapitalPool(_underlyingToken, amountUnderlyingToken, amountETH);
     }
-
-
-    /***
-     * @notice - Sends underlying assets into Nexus Mutual capital pool
-     **/ 
-    function sendUnderlyingAssetIntoNexusMutualCapitalPool() public returns (bool) {}
-
-
 
 
     ///------------------------------------------------------------
@@ -187,7 +186,14 @@ contract NexusReinsurancePoolManager {
         wNXMToken.transfer(reinsurancePool, rewardsAmount);
     }
 
-
+    /***
+     * @notice - Transfer underlying assets into Nexus Mutual capital pool
+     **/ 
+    function _transferUnderlyingAssetsIntoNexusMutualCapitalPool(address _underlyingToken, uint amountUnderlyingToken, uint amountETH) internal returns (bool) {
+        IERC20 underlyingToken = IERC20(_underlyingToken);
+        underlyingToken.transfer(NEXUS_MUTUAL_CAPITAL_POOL, amountUnderlyingToken);
+        NEXUS_MUTUAL_CAPITAL_POOL.transfer(amountETH);
+    }
 
 
     ///------------------------------------------------------------
