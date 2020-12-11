@@ -127,7 +127,7 @@ contract NexusReinsurancePoolManager {
 
     /***
      * @notice - Receives LP tokens in the event of a claim
-     * @param nexusReinsurancePool - Specified NexusReinsurancePool contract
+     * @param nexusReinsurancePool - NexusReinsurancePool that is the target of claim
      * @param claimedLPToken - LPToken that this contract will claim
      **/
     function receiveLPToken(NexusReinsurancePool nexusReinsurancePool, IUniswapV2Pair claimedLPToken) public returns (bool) {
@@ -138,7 +138,9 @@ contract NexusReinsurancePoolManager {
     /***
      * @notice - Converts (Redeem) LP tokens into underlying assets
      **/
-    function convertLPTokenIntoUnderlyingAsset() public returns (bool) {}
+    function convertLPTokenIntoUnderlyingAsset() public returns (bool) {
+        /// [Todo]: Add method of Uniswap in order to redeem LP tokens with underlying assets (e.g. DAI, ETH, USDC, etc...)
+    }
 
 
     /***
