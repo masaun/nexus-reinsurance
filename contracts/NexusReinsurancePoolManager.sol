@@ -4,22 +4,20 @@ pragma experimental ABIEncoderV2;
 /// [Note]: @openzeppelin/contracts v2.5.1
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import { MainStorage } from  "./mainStorage/MainStorage.sol";
+/// Uniswap V2
+import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
+import { IUniswapV2Router02 } from './uniswap/interfaces/IUniswapV2Router02.sol';
 
+import { MainStorage } from  "./mainStorage/MainStorage.sol";
 import { IPooledStaking } from "./nexus-mutual/interfaces/IPooledStaking.sol";
 import { ITokenData } from "./nexus-mutual/interfaces/ITokenData.sol";
-
 import { MCR } from "./nexus-mutual/modules/capital//MCR.sol";
 import { INXMToken } from "./nexus-mutual/abstract/INXMToken.sol";
 import { Claims } from "./nexus-mutual/modules/claims/Claims.sol";
-
 import { IwNXM } from "./IwNXM.sol";
 import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
 import { NexusReinsurancePoolFactory } from "./NexusReinsurancePoolFactory.sol";
 import { NexusMutualCapitalPool } from "./NexusMutualCapitalPool.sol";
-
-import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
-import { IUniswapV2Router02 } from './uniswap/interfaces/IUniswapV2Router02.sol';
 
 
 /***
@@ -155,11 +153,11 @@ contract NexusReinsurancePoolManager {
         uint amountUnderlyingToken;
         uint amountETH;
         (amountUnderlyingToken, amountETH) = uniswapV2Router02.removeLiquidityETH(_underlyingToken, 
-                                                                        liquidity,
-                                                                        amountTokenMin,
-                                                                        amountETHMin,
-                                                                        to,
-                                                                        deadline);
+                                                                                  liquidity,
+                                                                                  amountTokenMin,
+                                                                                  amountETHMin,
+                                                                                  to,
+                                                                                  deadline);
 
         /// Transfer underlyingToken to the Nexus Mutual Capital Pool
         _transferUnderlyingAssetsIntoNexusMutualCapitalPool(_underlyingToken, amountUnderlyingToken, amountETH);

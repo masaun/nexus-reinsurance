@@ -1,11 +1,13 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
+/// Uniswap V2
+import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
+
 import { MainStorage } from  "./mainStorage/MainStorage.sol";
 import { IwNXM } from "./IwNXM.sol";
 import { NexusReinsurancePool } from "./NexusReinsurancePool.sol";
 import { NexusReinsurancePoolManager } from "./NexusReinsurancePoolManager.sol";
-import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
 
 
 /***

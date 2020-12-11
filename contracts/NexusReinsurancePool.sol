@@ -4,10 +4,13 @@ pragma experimental ABIEncoderV2;
 /// [Note]: @openzeppelin/contracts v2.5.1
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 
+/// Uniswap V2
+import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
+
 import { MainStorage } from  "./mainStorage/MainStorage.sol";
 import { IwNXM } from "./IwNXM.sol";
 import { NexusReinsurancePoolManager } from "./NexusReinsurancePoolManager.sol";
-import { IUniswapV2Pair } from './uniswap/interfaces/IUniswapV2Pair.sol';
+
 
 /***
  * @notice - Users can stake Uniswap/Balancer LP tokens in return for additional wNXM rewards .
