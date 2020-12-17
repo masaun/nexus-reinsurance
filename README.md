@@ -1,6 +1,4 @@
 # Nexus Reinsurance
-
-***
 ## 【Introduction of Nexus Reinsurance】
 - This is a smart contract for creating a reinsurance layer for Nexus, where users can stake Uniswap/Balancer LP tokens in return for additional wNXM rewards. 
   - In return, if Nexus’ MCR% drops below a certain threshold (eg 80%) then Nexus can claim a portion of the LP tokens, withdraw their underlying assets and transfer the assets into the Nexus Mutual pool.
@@ -51,11 +49,30 @@ $ npm run script:kovan
 
 ## 【References】
 - Nexus Mutual
-  - Nexus Reinsurance Layer in Gitcoin  
+  - Nexus Reinsurance Layer (Document)  
+    https://docs.google.com/document/d/1EZLRdxkfb-3lbkAp1FNrIs4vkDXPfNko6PJ0IMnp4vw/edit
+
+  - Nexus Reinsurance Layer in GR8  
     https://gitcoin.co/issue/NexusMutual/smart-contracts/48/100024186
 
-  - MCR% stands for Minimum Capital Requirement %  
+  - MCR% stands for Minimum Capital Requirement %   
     https://nexusmutual.gitbook.io/docs/docs#capital-model
 
-  - Nexus Reinsurance Layer  
-    https://docs.google.com/document/d/1EZLRdxkfb-3lbkAp1FNrIs4vkDXPfNko6PJ0IMnp4vw/edit
+<br>
+
+- Nexus Mutual (Other resources)
+  - Nexus Mutual Smart Contracts: https://github.com/NexusMutual/smart-contracts/tree/master/contracts
+  - Nexus Mutual docs: https://nexusmutual.gitbook.io/docs/docs
+  - Nexus Mutual app: https://app.nexusmutual.io/ 
+  - Nexus Mutual Smart Contracts index: https://nxm.surge.sh/ 
+  - Stats: https://nexustracker.io/ 
+  - Wrapped NXM (wNXM): https://etherscan.io/address/0x0d438f3b5175bebc262bf23753c1e53d03432bde#code
+  - GR8 Bounty: https://gitcoin.co/issue/NexusMutual/smart-contracts/47/100024185
+  - Deployed contract address
+    - Deployed contract information
+      https://nexusmutual.gitbook.io/docs/docs#deployed-contract-information
+
+    - How to deploy on Kovan
+      https://github.com/NexusMutual/smart-contracts#getting-started
+
+
