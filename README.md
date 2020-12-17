@@ -37,10 +37,8 @@ $ npm run migrate:kovan
 
 <br>
 
-### ③ Execute script (it's instead of testing)
-```
-$ npm run script:kovan
-```
+### ③ Testing
+※ In progress
 
 
 &nbsp;
